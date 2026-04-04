@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMPLIGAME</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="poisk.css">
+    <link rel="stylesheet" href="swiper-bundle.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="cloudgame.css">
+    <link rel="stylesheet" href="setting.css">
+    <link rel="stylesheet" href="library.css">
+    <link rel="stylesheet" href="supports.css">
+    <link rel="stylesheet" href="avatar.css">
+    <link rel="stylesheet" href="events.css">
+    <link rel="stylesheet" href="groups.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="friends.css">
+    <link rel="stylesheet" href="forums.css">
+  </head>
+  <body>
+    <div class="app">
+      <nav class="sidebar">
+        <h2 class="sidebar-menu"></h2>
+        <ul>
+          <li class="sidebar-btn active" id="btn-store">
+            <a href="#">
+              <img src="store.svg" alt="" class="icon" />
+              Store</a
+            >
+          </li>
+          <li class="sidebar-btn" id="btn-library">
+            <a href="#">
+              <img src="library.svg" alt="" class="icon" />
+              Library</a
+            >
+          </li>
+          <li class="sidebar-btn" id="btn-cloud">
+            <a href="#">
+              <img src="games.svg" alt="" class="icon" />
+              Cloud Gaming</a
+            >
+          </li>
+          <li class="sidebar-btn has-dropdown" id="btn-community">
+            <a href="#" class="dropdown-toggle"
+              ><img src="community.svg" alt="" class="icon" /><span>
+                Community</span
+              >
+              <span class="arrow">⛛</span></a
+            >
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#" class="dropdown-link" id="btn-profile">Profile</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-link" id="btn-friends">Friends</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-link" id="btn-groups">Groups</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-link" id="btn-forums">Forums</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-link" id="btn-events">Events</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-btn bottom" id="btn-setting">
+            <a href="#">
+              <img src="setting.svg" alt="" class="icon" />Setting</a
+            >
+          </li>
+          <li class="sidebar-btn" id="btn-support">
+            <a href="#">
+              <img src="supports.svg" alt="" class="icon" />Supports</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <div class="content">
+        <div class="avatar-container" id="avatarContainer">
+          <div class="avatar-circle">
+            <img src="./img/default-avatar.png" alt="Avatar" id="userAvatar" />
+            <span class="avatar-status online"></span>
+          </div>
+        </div>
+
+        <!-- Баланс пользователя -->
+        <div class="balance-container">
+          <div class="balance-card">
+            <span class="balance-label">Ваш баланс</span>
+            <span class="balance-amount" id="userBalance">0 ₽</span>
+            <button class="balance-add-btn" id="addBalanceBtn">
+              + Пополнить
+            </button>
+          </div>
+        </div>
+
+        <!-- Модальное окно пополнения баланса -->
+        <div class="balance-modal" id="balanceModal">
+          <div class="balance-modal-content">
+            <div class="balance-modal-header">
+              <h3>Пополнение баланса</h3>
+              <button class="balance-close-btn">×</button>
+            </div>
+            <div class="balance-modal-body">
+              <div class="balance-presets">
+                <button class="balance-preset" data-amount="100">100 ₽</button>
+                <button class="balance-preset" data-amount="500">500 ₽</button>
+                <button class="balance-preset" data-amount="1000">
+                  1000 ₽
+                </button>
+                <button class="balance-preset" data-amount="2500">
+                  2500 ₽
+                </button>
+                <button class="balance-preset" data-amount="5000">
+                  5000 ₽
+                </button>
+                <button class="balance-preset" data-amount="10000">
+                  10000 ₽
+                </button>
+              </div>
+              <div class="balance-custom">
+                <input
+                  type="number"
+                  class="balance-custom-input"
+                  id="customAmount"
+                  placeholder="Своя сумма"
+                  min="1"
+                />
+                <button class="balance-custom-add">Добавить</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="store-content">
+          <div class="search">
+            <input type="text" placeholder="Нажмите для поиска" />
+            <button type="button"><img src="search.png" alt="Поиск" /></button>
+          </div>
+          <h2 class="store-glav">Главное</h2>
+
+          <div class="swiper swiperTop">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img src="./img/witcher.svg" /></div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 56 (1).svg" />
+              </div>
+              <div class="swiper-slide"><img src="./img/starcraft.svg" /></div>
+              <div class="swiper-slide"><img src="./img/dragonAge.svg" /></div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 61 (1).svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 59.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 62.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 60.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 64.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 63.svg" />
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper swiperBottom">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 66.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 65.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 67.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 68.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 69.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 70.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 71.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 72.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 73.svg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="./img/Rectangle 80.svg" />
+              </div>
+            </div>
+          </div>
+
+          <h2 class="store-games-title">Популярные игры</h2>
+
+          <div class="games-grid">
+            <div class="game-card">
+              <img src="./img/witcher.svg" />
+              <h4>The Witcher 3</h4>
+              <span class="price">1299 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/cyberpunk.webp" />
+              <h4>Cyberpunk 2077</h4>
+              <span class="price">1799 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/resized-starfild2.webp" />
+              <h4>Starfield</h4>
+              <span class="price">1999 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/gta5.webp" />
+              <h4>GTA V</h4>
+              <span class="price">999 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/i (1).webp" />
+              <h4>Red Dead Redemption 2</h4>
+              <span class="price">1499 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/S600xU_2x (1).webp" />
+              <h4>Elden Ring</h4>
+              <span class="price">2199 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/Rectangle 77.svg" />
+              <h4>Assassin’s Creed I</h4>
+              <span class="price">349 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/i (2).webp" />
+              <h4>Hogwarts Legacy</h4>
+              <span class="price">599 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/SUx182_2x.webp" />
+              <h4>Forza Horizon 5</h4>
+              <span class="price">3599 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/starcraft.svg" />
+              <h4>Star Craft</h4>
+              <span class="price">1999 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/i (3).webp" />
+              <h4>Assassin's Creed Mirage</h4>
+              <span class="price">1699 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/i (5).webp" />
+              <h4>Resident Evil 4</h4>
+              <span class="price">1799 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/i (6).webp" />
+              <h4>God of War</h4>
+              <span class="price">899 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/S600xU_2x.webp" />
+              <h4>Spider-Man Remastered</h4>
+              <span class="price">1999 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/Rectangle 61 (1).svg" />
+              <h4>Dead Space 2</h4>
+              <span class="price">1299 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/i.webp" />
+              <h4>Sid Meier’s Civilization VII</h4>
+              <span class="price">3195 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/terraria.webp" />
+              <h4>Terraria</h4>
+              <span class="price">329 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/aaa.webp" />
+              <h4>Tiny Bunny</h4>
+              <span class="price">500 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/DARK SOULS.webp" />
+              <h4>Dark Souls Remastered</h4>
+              <span class="price">2399 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/icarus.webp" />
+              <h4>ICARUS</h4>
+              <span class="price">1200 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/dl 1.webp" />
+              <h4>Dying Light</h4>
+              <span class="price">800 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/forest.webp" />
+              <h4>Sons Of The Forest</h4>
+              <span class="price">1300 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/RUST.webp" />
+              <h4>RUST</h4>
+              <span class="price">1659 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/phasma.webp" />
+              <h4>Phasmophobia</h4>
+              <span class="price">500 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/ItTakesTwo.webp" />
+              <h4>It Takes Two</h4>
+              <span class="price">1499 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/Rectangle 68.svg" />
+              <h4>Silent Hill 2</h4>
+              <span class="price">2499 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/Rectangle 62.svg" />
+              <h4>Hollow Knight</h4>
+              <span class="price">599 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/sekiro1.png" />
+              <h4>Sekiro</h4>
+              <span class="price">2999 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/SH F.webp" />
+              <h4>Silent Hill f</h4>
+              <span class="price">2599 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+
+            <div class="game-card">
+              <img src="./img/Reanimal.jpg" />
+              <h4>REANIMAL</h4>
+              <span class="price">1999 ₽</span>
+              <button class="sellgame2">Купить</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cloud-page" style="display: none">
+          <p class="cloud-mini">Cloud gaming</p>
+          <h1 class="cloud-title">Почему AMPLIGAME?</h1>
+
+          <div class="cloud-features">
+            <div class="cloud-item">
+              <div class="cloud-icon">
+                <img src="./img/Ellipse 3.png" alt="" />
+              </div>
+              <h3>Плати только за время</h3>
+              <p>С нас 5 000+ игр, с тебя — оплата только за время</p>
+            </div>
+
+            <div class="cloud-item">
+              <div class="cloud-icon">
+                <img src="./img/Ellipse 4.png" alt="" />
+              </div>
+              <h3>Поминутная оплата</h3>
+              <p>
+                Не обязательно играть весь оплаченный час — вернём остаток после
+                завершения сессии
+              </p>
+            </div>
+
+            <div class="cloud-item">
+              <div class="cloud-icon">
+                <img src="./img/Ellipse 5.png" alt="" />
+              </div>
+              <h3>Не лагает</h3>
+              <p>
+                Играй без тормозов, при проблемах можно выбрать другой сервер
+              </p>
+            </div>
+
+            <div class="cloud-item">
+              <div class="cloud-icon">
+                <img src="./img/Ellipse 6.png" alt="" />
+              </div>
+              <h3>Сохраняй прогресс</h3>
+              <p>
+                Твои сейвы хранятся в облаке, продолжай игру с последнего места
+              </p>
+            </div>
+          </div>
+
+          <div class="cloud-tariffs">
+            <h2 class="tariff-title">
+              Найдите тариф, который подходит именно вам
+            </h2>
+
+            <div class="tariff-cards">
+              <div class="tariff-card">
+                <h3>Лайт</h3>
+                <ul>
+                  <li>
+                    Безлимит на месяц, играйте без ограничений днём и ночью
+                  </li>
+                  <li>Full HD, до 60 FPS, поддержка RTX</li>
+                  <li>50 игр каталога*</li>
+                </ul>
+                <div class="price">999 ₽/мес</div>
+                <button class="buy-btn"><a href="">Купить</a></button>
+              </div>
+
+              <div class="tariff-card">
+                <h3>Комфорт</h3>
+                <ul>
+                  <li>60 часов/мес + ночной безлимит 00:00–08:00 МСК</li>
+                  <li>до 4K, 120 FPS, поддержка RTX</li>
+                  <li>347 игр каталога</li>
+                  <li>
+                    Запуск ваших игр через Steam, EGS, EA и другие лаунчеры
+                  </li>
+                  <li>Установка любых игр и программ</li>
+                  <li>Сохранение неотыгранных часов</li>
+                </ul>
+                <div class="price">1 999 ₽/мес</div>
+                <button class="buy-btn"><a href="">Купить</a></button>
+              </div>
+
+              <div class="tariff-card">
+                <h3>Премиум</h3>
+                <ul>
+                  <li>
+                    Безлимит на месяц, играйте без ограничений днём и ночью
+                  </li>
+                  <li>до 4K, 120 FPS, поддержка RTX</li>
+                  <li>347 игр каталога*</li>
+                  <li>
+                    Запуск ваших игр через Steam, EGS, EA и другие лаунчеры
+                  </li>
+                  <li>Установка любых игр и программ</li>
+                  <li>Максимальный приоритет в очереди</li>
+                </ul>
+                <div class="price">3 599 ₽/мес</div>
+                <button class="buy-btn"><a href="">Купить</a></button>
+              </div>
+            </div>
+
+            <p class="tariff-note">
+              * Платные игры можно запустить только в том случае, если они у вас
+              уже куплены
+            </p>
+          </div>
+        </div>
+
+        <!-- Страница настроек -->
+        <div class="settings-page" style="display: none">
+          <h2 class="settings-title">Настройки</h2>
+
+          <div class="settings-container">
+            <div class="settings-sidebar">
+              <ul class="settings-menu">
+                <li class="settings-menu-item active" data-tab="account">
+                  Аккаунт
+                </li>
+                <li class="settings-menu-item" data-tab="profile">Профиль</li>
+                <li class="settings-menu-item" data-tab="privacy">
+                  Приватность
+                </li>
+                <li class="settings-menu-item" data-tab="notifications">
+                  Уведомления
+                </li>
+                <li class="settings-menu-item" data-tab="language">Язык</li>
+                <li class="settings-menu-item" data-tab="theme">Тема</li>
+                <li class="settings-menu-item" data-tab="security">
+                  Безопасность
+                </li>
+                <li class="settings-menu-item" data-tab="payments">Платежи</li>
+              </ul>
+            </div>
+
+            <div class="settings-content">
+              <!-- Аккаунт -->
+              <div class="settings-tab active" id="tab-account">
+                <h3>Аккаунт</h3>
+                <div class="settings-form">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      value="user@example.com"
+                      placeholder="Введите email"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Имя пользователя</label>
+                    <input
+                      type="text"
+                      value="Player123"
+                      placeholder="Введите имя"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Пароль</label>
+                    <input
+                      type="password"
+                      value="********"
+                      placeholder="Новый пароль"
+                    />
+                  </div>
+                  <button class="settings-save-btn">Сохранить изменения</button>
+                </div>
+              </div>
+
+              <!-- Профиль (скрыт по умолчанию) -->
+              <div class="settings-tab" id="tab-profile" style="display: none">
+                <h3>Профиль</h3>
+                <div class="settings-form">
+                  <div class="form-group">
+                    <label>Отображаемое имя</label>
+                    <input
+                      type="text"
+                      value="Player123"
+                      placeholder="Ваше имя"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Статус</label>
+                    <select>
+                      <option>Онлайн</option>
+                      <option>Не беспокоить</option>
+                      <option>Невидимка</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Аватар</label>
+                    <input type="file" accept="image/*" />
+                  </div>
+                  <button class="settings-save-btn">Сохранить изменения</button>
+                </div>
+              </div>
+
+              <!-- Приватность -->
+              <div class="settings-tab" id="tab-privacy" style="display: none">
+                <h3>Приватность</h3>
+                <div class="settings-form">
+                  <div class="form-group checkbox">
+                    <label>
+                      <input type="checkbox" checked /> Показывать мой
+                      онлайн-статус
+                    </label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <label>
+                      <input type="checkbox" checked /> Показывать мою
+                      библиотеку игр
+                    </label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <label>
+                      <input type="checkbox" /> Разрешить добавлять в друзья
+                    </label>
+                  </div>
+                  <button class="settings-save-btn">Сохранить изменения</button>
+                </div>
+              </div>
+
+              <!-- Уведомления -->
+              <div
+                class="settings-tab"
+                id="tab-notifications"
+                style="display: none"
+              >
+                <h3>Уведомления</h3>
+                <div class="settings-form">
+                  <div class="form-group checkbox">
+                    <label>
+                      <input type="checkbox" checked /> Уведомления о новых
+                      сообщениях
+                    </label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <label>
+                      <input type="checkbox" checked /> Уведомления о скидках
+                    </label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <label>
+                      <input type="checkbox" /> Уведомления о выходе новых игр
+                    </label>
+                  </div>
+                  <button class="settings-save-btn">Сохранить изменения</button>
+                </div>
+              </div>
+
+              <!-- Язык -->
+              <div class="settings-tab" id="tab-language" style="display: none">
+                <h3>Язык / Language</h3>
+                <div class="settings-form">
+                  <div class="form-group">
+                    <label>Выберите язык интерфейса / Select interface language</label>
+                    <select id="languageSelect">
+                     <option value="ru">Русский</option>
+                     <option value="en">English</option>
+                    </select>
+                  </div>
+                  <div class="language-preview">
+                    <p class="language-note">Изменение языка вступит в силу сразу / Language changes take effect immediately</p>
+                  </div>
+                   <button class="settings-save-btn" id="saveLanguageBtn">Сохранить / Save</button>
+                 </div>
+               </div>
+
+              <div class="settings-tab" id="tab-theme" style="display: none">
+                <h3>Тема оформления</h3>
+                <div class="settings-form">
+                  <div class="form-group">
+                    <label>Выберите тему</label>
+                    <select>
+                      <option>Тёмная</option>
+                      <option>Светлая</option>
+                      <option>Системная</option>
+                    </select>
+                  </div>
+                  <button class="settings-save-btn">Сохранить изменения</button>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="tab-security" style="display: none">
+                <h3>Безопасность</h3>
+                <div class="settings-form">
+                  <div class="form-group checkbox">
+                    <label>
+                      <input type="checkbox" /> Включить двухфакторную
+                      аутентификацию
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <label>Последний вход</label>
+                    <p class="settings-info">07.03.2026, 14:35</p>
+                  </div>
+                  <button class="settings-save-btn">Сохранить изменения</button>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="tab-payments" style="display: none">
+                <h3>Платежи</h3>
+                <div class="settings-form">
+                  <p class="settings-info">Способ оплаты по умолчанию</p>
+                  <div class="form-group">
+                    <label>Номер карты</label>
+                    <input type="text" value="**** **** **** 1234" disabled />
+                  </div>
+                  <button class="settings-save-btn">
+                    Добавить новый способ оплаты
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="supports-page" style="display: none">
+          <div class="supports-container">
+            <h1 class="supports-title">Центр поддержки</h1>
+
+            <div class="supports-search">
+              <input
+                type="text"
+                class="supports-search-input"
+                placeholder="Поиск по вопросам..."
+              />
+              <button class="supports-search-btn">Найти</button>
+            </div>
+
+      
+            <div class="supports-grid">
+              <div class="supports-section">
+                <h2 class="supports-section-title">Часто задаваемые вопросы</h2>
+                <div class="faq-list">
+                  <div class="faq-item">
+                    <div class="faq-question">Как купить игру?</div>
+                    <div class="faq-answer">
+                      Выберите игру в магазине, нажмите "Купить" и следуйте
+                      инструкциям оплаты.
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <div class="faq-question">
+                      Как установить игру из библиотеки?
+                    </div>
+                    <div class="faq-answer">
+                      Перейдите в библиотеку, нажмите на игру и выберите
+                      "Установить".
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <div class="faq-question">Как вернуть игру?</div>
+                    <div class="faq-answer">
+                      Возврат возможен в течение 14 дней, если игра не была
+                      установлена.
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <div class="faq-question">Не запускается игра</div>
+                    <div class="faq-answer">
+                      Проверьте системные требования и обновите драйвера
+                      видеокарты.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="supports-section">
+                <h2 class="supports-section-title">Связаться с нами</h2>
+                <div class="contact-cards">
+                  <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>wwww.454@gmail.com</p>
+                    <button
+                      class="contact-btn"
+                      onclick="window.location.href='mailto:support@ampligame.ru'"
+                    >
+                      Написать
+                    </button>
+                  </div>
+                  <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Чат</h3>
+                    <p>Онлайн 24/7</p>
+                    <button class="contact-btn open-chat-btn">
+                      Открыть чат
+                    </button>
+                  </div>
+                  <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h3>Telegram</h3>
+                    <p>@Era66Era</p>
+                    <button
+                      class="contact-btn"
+                      onclick="window.open('https://t.me/ampligame_support', '_blank')"
+                    >
+                      Перейти
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              
+              <div class="supports-section">
+                <h2 class="supports-section-title">Системные требования</h2>
+                <div class="requirements">
+                  <div class="req-item">
+                    <span class="req-label">ОС:</span>
+                    <span class="req-value">Windows 10/11 (64-bit)</span>
+                  </div>
+                  <div class="req-item">
+                    <span class="req-label">Процессор:</span>
+                    <span class="req-value">Intel Core i5 / AMD Ryzen 5</span>
+                  </div>
+                  <div class="req-item">
+                    <span class="req-label">Оперативная память:</span>
+                    <span class="req-value">8 GB</span>
+                  </div>
+                  <div class="req-item">
+                    <span class="req-label">Видеокарта:</span>
+                    <span class="req-value"
+                      >NVIDIA GeForce GTX 1060 / AMD Radeon RX 580</span
+                    >
+                  </div>
+                  <div class="req-item">
+                    <span class="req-label">Место на диске:</span>
+                    <span class="req-value"
+                      >80 GB - в среднем для установки почти каждой игры <br />
+                      <p class="text-gb">
+                        Мало места? Предоставляем услуги Облачного гейминга!
+                      </p></span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="supports-section">
+                <h2 class="supports-section-title">Полезные ссылки</h2>
+                <ul class="useful-links">
+                  <li>
+                    <a href="#" class="useful-link" data-page="faq">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="#" class="useful-link" data-page="rules"
+                      >Правила платформы</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="useful-link" data-page="privacy"
+                      >Политика конфиденциальности</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="useful-link" data-page="terms"
+                      >Условия использования</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="useful-link" data-page="refund"
+                      >Политика возврата</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="chat-modal" id="chatModal">
+              <div class="chat-modal-content">
+                <div class="chat-modal-header">
+                  <h3>Чат поддержки</h3>
+                  <button class="chat-close-btn">×</button>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                  <div class="chat-message support">
+                    <div class="message-text">
+                      Здравствуйте! Чем я могу вам помочь?
+                    </div>
+                    <div class="message-time">Только что</div>
+                  </div>
+                </div>
+                <div class="chat-input-area">
+                  <input
+                    type="text"
+                    class="chat-input"
+                    placeholder="Введите сообщение..."
+                  />
+                  <button class="chat-send-btn">Отправить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="events-page" style="display: none">
+  <div class="events-container">
+    <div class="cybersport-news">
+      <div class="news-header">
+        <h2>Киберспорт</h2>
+        <span>Свежие новости</span>
+      </div>
+
+      <div class="news-item">
+        <div class="news-time">12:30</div>
+        <div class="news-content">
+          <h3>Team Spirit вышла в гранд-финал</h3>
+          <p>Российская команда обыграла BetBoom со счетом 3:1 на ESL One Birmingham</p>
+          <div class="news-tags">
+            <span class="news-tag dota2">Dota 2</span>
+            <span class="news-tag">Team Spirit</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-time">10:15</div>
+        <div class="news-content">
+          <h3>s1mple возвращается?</h3>
+          <p>Легендарный игрок намекнул на возвращение в NAVI в своем твиттере</p>
+          <div class="news-tags">
+            <span class="news-tag cs2">CS2</span>
+            <span class="news-tag">NAVI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-time">Вчера</div>
+        <div class="news-content">
+          <h3>Анонс турнира Valorant Champions</h3>
+          <p>Призовой фонд составит рекордные 2.5 миллиона долларов</p>
+          <div class="news-tags">
+            <span class="news-tag valorant">Valorant</span>
+            <span class="news-tag">Champions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-time">Вчера</div>
+        <div class="news-content">
+          <h3>Обновление патча 7.35 для Dota 2</h3>
+          <p>Изменения затронут более 20 героев и предметов</p>
+          <div class="news-tags">
+            <span class="news-tag dota2">Dota 2</span>
+            <span class="news-tag">Патч</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-time">2 дня назад</div>
+        <div class="news-content">
+          <h3>G2 выиграла IEM Katowice</h3>
+          <p>В финале обыграли FaZe Clan со счетом 3:0</p>
+          <div class="news-tags">
+            <span class="news-tag cs2">CS2</span>
+            <span class="news-tag">IEM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-all-news">
+        <button>Все новости киберспорта</button>
+      </div>
+    </div>
+<div class="streams-block">
+  <div class="streams-header">
+    <h3>Прямые эфиры</h3>
+    <span class="streams-count">3 онлайн</span>
+  </div>
+  
+  <div class="streams-list">
+    <div class="stream-card">
+      <div class="stream-preview" style="background: linear-gradient(135deg, #1a1a1a, #222); position: relative;">
+        <img src="./img/streams/gif cs2.gif" alt="CS2 Gameplay" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+        <span class="live-badge">LIVE</span>
+        <span class="stream-viewers">1.2K зрителей</span>
+      </div>
+      <div class="stream-info">
+        <div class="streamer-avatar">
+          <img src="./img/avatars/cs2 img.webp" alt="ShadowMaster" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+        </div>
+        <div class="stream-details">
+          <h4>ShadowMaster</h4>
+          <p>CS2 - Ранговый матч | Путь к глобалке</p>
+          <div class="stream-tags">
+            <span class="stream-tag cs2">CS2</span>
+            <span class="stream-tag">Русский</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stream-card">
+      <div class="stream-preview" style="background: linear-gradient(135deg, #1a1a1a, #222); position: relative;">
+        <img src="./img/streams/dota-2.gif" alt="Dota 2 Gameplay" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+        <span class="live-badge">LIVE</span>
+        <span class="stream-viewers">856 зрителей</span>
+      </div>
+      <div class="stream-info">
+        <div class="streamer-avatar">
+          <img src="./img/avatars/dota.webp" alt="DragonSlayer" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+        </div>
+        <div class="stream-details">
+          <h4>DragonSlayer</h4>
+          <p>Dota 2 - Immortal bracket | Проходим на топ-100</p>
+          <div class="stream-tags">
+            <span class="stream-tag dota2">Dota 2</span>
+            <span class="stream-tag">Турниры</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stream-card">
+      <div class="stream-preview" style="background: linear-gradient(135deg, #1a1a1a, #222); position: relative;">
+        <img src="./img/streams/valorant.gif" alt="Valorant Gameplay" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+        <span class="live-badge">LIVE</span>
+        <span class="stream-viewers">2.1K зрителей</span>
+      </div>
+      <div class="stream-info">
+        <div class="streamer-avatar">
+          <img src="./img/avatars/val.webp" alt="ValorantPro" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+        </div>
+        <div class="stream-details">
+          <h4>ValorantPro</h4>
+          <p>Valorant | Immortal 3 | Тренировка аимов</p>
+          <div class="stream-tags">
+            <span class="stream-tag valorant">Valorant</span>
+            <span class="stream-tag">Соревнования</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="all-streams-link">
+    <button class="all-streams-btn">Больше</button>
+  </div>
+</div>
+
+    <div class="events-main">
+      <h1 class="events-title">События и мероприятия</h1>
+
+      <div class="events-tabs">
+        <button class="events-tab-btn active" data-tab="upcoming">
+          Предстоящие
+        </button>
+        <button class="events-tab-btn" data-tab="past">Прошедшие</button>
+        <button class="events-tab-btn" data-tab="tournaments">
+          Турниры
+        </button>
+      </div>
+
+      <div class="events-tab-content active" id="upcoming">
+        <div class="events-grid">
+          <div class="event-card">
+            <div class="event-date">
+              <span class="event-day">15</span>
+              <span class="event-month">Апр</span>
+            </div>
+            <div class="event-info">
+              <h3>Релиз GTA VI</h3>
+              <p class="event-desc">Долгожданный выход новой части культовой серии</p>
+              <div class="event-meta">
+                <span class="event-time">20:00 МСК</span>
+                <span class="event-platform">PC, PS5, Xbox</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-date">
+              <span class="event-day">22</span>
+              <span class="event-month">Апр</span>
+            </div>
+            <div class="event-info">
+              <h3>Киберспортивный турнир по CS2</h3>
+              <p class="event-desc">Призовой фонд 1 000 000 ₽</p>
+              <div class="event-meta">
+                <span class="event-time">15:00 МСК</span>
+                <span class="event-platform">Регистрация открыта</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-date">
+              <span class="event-day">05</span>
+              <span class="event-month">Май</span>
+            </div>
+            <div class="event-info">
+              <h3>Закрытое бета-тестирование</h3>
+              <p class="event-desc">Новая игра от студии CD Projekt Red</p>
+              <div class="event-meta">
+                <span class="event-time">12:00 МСК</span>
+                <span class="event-platform">По инвайтам</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-date">
+              <span class="event-day">12</span>
+              <span class="event-month">Май</span>
+            </div>
+            <div class="event-info">
+              <h3>Распродажа Indie-игр</h3>
+              <p class="event-desc">Скидки до 80% на независимые проекты</p>
+              <div class="event-meta">
+                <span class="event-time">00:01 МСК</span>
+                <span class="event-platform">3 дня</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="events-tab-content" id="past">
+        <div class="events-grid">
+          <div class="event-card past">
+            <div class="event-date">
+              <span class="event-day">01</span>
+              <span class="event-month">Мар</span>
+            </div>
+            <div class="event-info">
+              <h3>Релиз дополнения Phantom Liberty</h3>
+              <p class="event-desc">Новое дополнение для Cyberpunk 2077</p>
+              <div class="event-meta">
+                <span class="event-time">Уже доступно</span>
+                <span class="event-platform">Рейтинг 9.2/10</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card past">
+            <div class="event-date">
+              <span class="event-day">15</span>
+              <span class="event-month">Фев</span>
+            </div>
+            <div class="event-info">
+              <h3>Зимняя распродажа</h3>
+              <p class="event-desc">Скидки до 90%</p>
+              <div class="event-meta">
+                <span class="event-time">Завершено</span>
+                <span class="event-platform">500 000 покупок</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="events-tab-content" id="tournaments">
+        <div class="tournaments-header">
+          <h2>Активные турниры</h2>
+          <button class="create-tournament-btn">+ Создать турнир</button>
+        </div>
+
+        <div class="tournaments-grid">
+          <div class="tournament-card">
+            <div class="tournament-image">
+              <span class="tournament-game">CS2</span>
+            </div>
+            <div class="tournament-info">
+              <h3>Ampligame Cup #1</h3>
+              <div class="tournament-details">
+                <span class="tournament-prize"> 50 000 ₽</span>
+                <span class="tournament-players">👥 16/32 игроков</span>
+                <span class="tournament-date">📅 20 апреля</span>
+              </div>
+              <button class="tournament-join-btn">Участвовать</button>
+            </div>
+          </div>
+
+          <div class="tournament-card">
+            <div class="tournament-image">
+              <span class="tournament-game">Elden Ring</span>
+            </div>
+            <div class="tournament-info">
+              <h3>Ampligame Elden Ring</h3>
+              <div class="tournament-details">
+                <span class="tournament-prize"> 100 000 ₽</span>
+                <span class="tournament-players">👥 8/16 команд</span>
+                <span class="tournament-date">📅 25 апреля</span>
+              </div>
+              <button class="tournament-join-btn">Участвовать</button>
+            </div>
+          </div>
+
+          <div class="tournament-card">
+            <div class="tournament-image">
+              <span class="tournament-game">Valorant</span>
+            </div>
+            <div class="tournament-info">
+              <h3>Valorant Open</h3>
+              <div class="tournament-details">
+                <span class="tournament-prize"> 75 000 ₽</span>
+                <span class="tournament-players">👥 12/16 команд</span>
+                <span class="tournament-date">📅 28 апреля</span>
+              </div>
+              <button class="tournament-join-btn">Участвовать</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="groups-page" style="display: none">
+  <div class="groups-container">
+    <div class="groups-header">
+      <div>
+        <h1 class="groups-title">Группы и сообщества</h1>
+        <p class="groups-subtitle">Найди единомышленников по любимым играм</p>
+      </div>
+      <button class="create-group-btn">
+        <span class="btn-icon">+</span>
+        Создать группу
+      </button>
+    </div>
+
+    <div class="groups-tabs">
+      <button class="groups-tab-btn active" data-tab="my-groups">
+        <span class="tab-icon"></span>
+        Мои группы
+        <span class="tab-count">3</span>
+      </button>
+      <button class="groups-tab-btn" data-tab="popular">
+        <span class="tab-icon"></span>
+        Популярные
+      </button>
+      <button class="groups-tab-btn" data-tab="recommended">
+        <span class="tab-icon"></span>
+        Рекомендации
+      </button>
+    </div>
+
+    <div class="groups-tab-content active" id="my-groups">
+      <div class="groups-grid">
+        <div class="group-card">
+          <div class="group-color-bar" style="background: linear-gradient(90deg, #8f3ed1, #a110ce)"></div>
+          <div class="group-info">
+            <div class="group-header">
+              <h3>Gaming Community</h3>
+              <span class="group-badge">Админ</span>
+            </div>
+            <p class="group-description">Обсуждаем новинки игр, делимся впечатлениями и находим друзей для совместной игры.</p>
+            
+            <div class="group-stats">
+              <div class="stat">
+                <span class="stat-value">2.5K</span>
+                <span class="stat-label">участников</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">150</span>
+                <span class="stat-label">постов</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">47</span>
+                <span class="stat-label">онлайн</span>
+              </div>
+            </div>
+
+            <div class="group-tags">
+              <span class="group-tag">#Игры</span>
+              <span class="group-tag">#Общение</span>
+              <span class="group-tag">#Новинки</span>
+            </div>
+
+            <div class="group-actions">
+              <button class="group-btn primary">Открыть</button>
+              <button class="group-btn secondary">Поделиться</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-card">
+          <div class="group-color-bar" style="background: linear-gradient(90deg, #e74c3c, #c0392b)"></div>
+          <div class="group-info">
+            <div class="group-header">
+              <h3>CS2 Pro Players</h3>
+              <span class="group-badge">Участник</span>
+            </div>
+            <p class="group-description">Турниры, тренировки, тактики и обсуждение профессиональной сцены CS2.</p>
+            
+            <div class="group-stats">
+              <div class="stat">
+                <span class="stat-value">1.2K</span>
+                <span class="stat-label">участников</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">89</span>
+                <span class="stat-label">постов</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">23</span>
+                <span class="stat-label">онлайн</span>
+              </div>
+            </div>
+
+            <div class="group-tags">
+              <span class="group-tag">#CS2</span>
+              <span class="group-tag">#Киберспорт</span>
+              <span class="group-tag">#Турниры</span>
+            </div>
+
+            <div class="group-actions">
+              <button class="group-btn primary">Открыть</button>
+              <button class="group-btn secondary">Поделиться</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-card">
+          <div class="group-color-bar" style="background: linear-gradient(90deg, #27ae60, #229954)"></div>
+          <div class="group-info">
+            <div class="group-header">
+              <h3>Dota 2 Fans</h3>
+              <span class="group-badge">Участник</span>
+            </div>
+            <p class="group-description">Патчи, герои, турниры и просто общение фанатов Доты. Заходи обсудить последний апдейт!</p>
+            
+            <div class="group-stats">
+              <div class="stat">
+                <span class="stat-value">3.8K</span>
+                <span class="stat-label">участников</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">210</span>
+                <span class="stat-label">постов</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">56</span>
+                <span class="stat-label">онлайн</span>
+              </div>
+            </div>
+
+            <div class="group-tags">
+              <span class="group-tag">#Dota2</span>
+              <span class="group-tag">#МОВА</span>
+              <span class="group-tag">#Турниры</span>
+            </div>
+
+            <div class="group-actions">
+              <button class="group-btn primary">Открыть</button>
+              <button class="group-btn secondary">Поделиться</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="groups-tab-content" id="popular">
+      <div class="groups-grid">
+        <div class="group-card popular">
+          <div class="group-color-bar" style="background: linear-gradient(90deg, #f39c12, #e67e22)"></div>
+          <div class="group-info">
+            <div class="group-header">
+              <h3>RPG World</h3>
+              <span class="group-rating-badge">⭐ 4.8</span>
+            </div>
+            <p class="group-description">Крупнейшее сообщество любителей RPG игр. Ведьмак, Скайрим, Фоллаут, Baldur's Gate и другие.</p>
+            
+            <div class="group-stats">
+              <div class="stat">
+                <span class="stat-value">15K</span>
+                <span class="stat-label">участников</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">1.2K</span>
+                <span class="stat-label">постов</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">500</span>
+                <span class="stat-label">онлайн</span>
+              </div>
+            </div>
+
+            <div class="group-tags">
+              <span class="group-tag">#RPG</span>
+              <span class="group-tag">#ОткрытыйМир</span>
+              <span class="group-tag">#Фэнтези</span>
+            </div>
+
+            <button class="group-btn primary join-btn">
+              <span class="btn-icon">+</span>
+              Вступить
+            </button>
+          </div>
+        </div>
+
+        <div class="group-card popular">
+          <div class="group-color-bar" style="background: linear-gradient(90deg, #9b59b6, #8e44ad)"></div>
+          <div class="group-info">
+            <div class="group-header">
+              <h3>Indie Games Hub</h3>
+              <span class="group-rating-badge">⭐ 4.9</span>
+            </div>
+            <p class="group-description">Всё об инди-играх. Новинки, обсуждения, поддержка независимых разработчиков.</p>
+            
+            <div class="group-stats">
+              <div class="stat">
+                <span class="stat-value">12K</span>
+                <span class="stat-label">участников</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">890</span>
+                <span class="stat-label">постов</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">320</span>
+                <span class="stat-label">онлайн</span>
+              </div>
+            </div>
+
+            <div class="group-tags">
+              <span class="group-tag">#Инди</span>
+              <span class="group-tag">#Творчество</span>
+              <span class="group-tag">#Новинки</span>
+            </div>
+
+            <button class="group-btn primary join-btn">
+              <span class="btn-icon">➕</span>
+              Вступить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="groups-tab-content" id="recommended">
+      <div class="recommended-grid">
+        <div class="recommended-card">
+          <div class="recommended-color-bar" style="background: linear-gradient(90deg, #1abc9c, #16a085)"></div>
+          <div class="recommended-info">
+            <h3>Co-op Games</h3>
+            <p>Ищи напарников для кооперативных игр</p>
+            <div class="recommended-meta">
+              <span>👥 5.2K участников</span>
+              <span>It Takes Two, A Way Out</span>
+            </div>
+            <button class="recommended-join-btn">Вступить</button>
+          </div>
+        </div>
+
+        <div class="recommended-card">
+          <div class="recommended-color-bar" style="background: linear-gradient(90deg, #e67e22, #d35400)"></div>
+          <div class="recommended-info">
+            <h3>Retro Gaming</h3>
+            <p>Ностальгия по старым играм</p>
+            <div class="recommended-meta">
+              <span>👥 3.8K участников</span>
+              <span>Sega, Dendy, SNES</span>
+            </div>
+            <button class="recommended-join-btn">Вступить</button>
+          </div>
+        </div>
+
+        <div class="recommended-card">
+          <div class="recommended-color-bar" style="background: linear-gradient(90deg, #3498db, #2980b9)"></div>
+          <div class="recommended-info">
+            <h3>Strategy Masters</h3>
+            <p>Стратегии и тактики</p>
+            <div class="recommended-meta">
+              <span>👥 4.1K участников</span>
+              <span>Civilization, Starcraft</span>
+            </div>
+            <button class="recommended-join-btn">Вступить</button>
+          </div>
+        </div>
+
+        <div class="recommended-card">
+          <div class="recommended-color-bar" style="background: linear-gradient(90deg, #e84393, #c2185b)"></div>
+          <div class="recommended-info">
+            <h3>Anime Games</h3>
+            <p>Игры в аниме стилистике</p>
+            <div class="recommended-meta">
+              <span>👥 2.9K участников</span>
+              <span>Genshin, Persona</span>
+            </div>
+            <button class="recommended-join-btn">Вступить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Страница друзей -->
+<div class="friends-page" style="display: none">
+  <div class="friends-container">
+    <!-- Шапка -->
+    <div class="friends-header">
+      <h1 class="friends-title">Мои друзья</h1>
+      <div class="friends-actions">
+        <div class="friends-search">
+          <input type="text" id="friendsSearchInput" placeholder="Поиск по имени...">
+          <button class="friends-search-btn">Найти</button>
+        </div>
+        <button class="add-friend-btn" id="addFriendBtn">+ Добавить друга</button>
+      </div>
+    </div>
+
+    <!-- Вкладки -->
+    <div class="friends-tabs">
+      <button class="friends-tab-btn active" data-tab="online">Онлайн <span class="tab-count" id="onlineCount">0</span></button>
+      <button class="friends-tab-btn" data-tab="all">Все друзья <span class="tab-count" id="allCount">0</span></button>
+      <button class="friends-tab-btn" data-tab="requests">Заявки <span class="tab-count" id="requestsCount">0</span></button>
+      <button class="friends-tab-btn" data-tab="blocked">Черный список</button>
+    </div>
+
+    <!-- Онлайн друзья -->
+    <div class="friends-tab-content active" id="online">
+      <div class="friends-list" id="onlineList">
+        <!-- Данные загружаются из localStorage -->
+      </div>
+    </div>
+
+    <!-- Все друзья -->
+    <div class="friends-tab-content" id="all">
+      <div class="friends-list" id="allList">
+        <!-- Данные загружаются из localStorage -->
+      </div>
+    </div>
+
+    <!-- Заявки -->
+    <div class="friends-tab-content" id="requests">
+      <div class="requests-list" id="requestsList">
+        <!-- Данные загружаются из localStorage -->
+      </div>
+    </div>
+
+    <!-- Черный список -->
+    <div class="friends-tab-content" id="blocked">
+      <div class="blocked-list" id="blockedList">
+        <!-- Данные загружаются из localStorage -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Модальное окно добавления друга -->
+<div class="add-friend-modal" id="addFriendModal">
+  <div class="add-friend-modal-content">
+    <div class="add-friend-modal-header">
+      <h3>Добавить друга</h3>
+      <button class="add-friend-close">×</button>
+    </div>
+    <div class="add-friend-modal-body">
+      <input type="text" id="friendNickname" placeholder="Введите никнейм друга">
+      <div class="search-result" id="searchResult"></div>
+      <button class="send-request-btn" id="sendRequestBtn">Отправить заявку</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Страница форумов -->
+<div class="forums-page" style="display: none">
+  <div class="forums-container">
+    <!-- Шапка -->
+    <div class="forums-header">
+      <h1 class="forums-title">Форумы</h1>
+      <div class="forums-search">
+        <input type="text" id="forumsSearchInput" placeholder="Поиск по темам...">
+        <button class="forums-search-btn">Найти</button>
+      </div>
+    </div>
+
+    <!-- Категории форумов -->
+    <div class="forums-categories">
+      <div class="category-card">
+        <div class="category-icon">🎮</div>
+        <div class="category-info">
+          <h3>Общие обсуждения</h3>
+          <p>Обсуждение игр, новинок, игровой индустрии</p>
+          <div class="category-stats">
+            <span>1.2K тем</span>
+            <span>💬 8.5K сообщений</span>
+          </div>
+        </div>
+        <div class="category-last">
+          <span class="last-topic">Последняя тема: Новичок, с чего начать?</span>
+          <span class="last-time">5 минут назад</span>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">💻</div>
+        <div class="category-info">
+          <h3>Помощь и поддержка</h3>
+          <p>Вопросы по играм, технические проблемы, решения</p>
+          <div class="category-stats">
+            <span>856 тем</span>
+            <span>💬 4.2K сообщений</span>
+          </div>
+        </div>
+        <div class="category-last">
+          <span class="last-topic">Игра не запускается после обновления</span>
+          <span class="last-time">15 минут назад</span>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">🤝</div>
+        <div class="category-info">
+          <h3>Поиск напарников</h3>
+          <p>Ищите друзей для совместной игры</p>
+          <div class="category-stats">
+            <span>2.1K тем</span>
+            <span>💬 12.5K сообщений</span>
+          </div>
+        </div>
+        <div class="category-last">
+          <span class="last-topic">Ищу тиммейтов для CS2 (Ранкед)</span>
+          <span class="last-time">1 час назад</span>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">🏆</div>
+        <div class="category-info">
+          <h3>Киберспорт</h3>
+          <p>Турниры, новости киберспорта, обсуждение матчей</p>
+          <div class="category-stats">
+            <span>654 темы</span>
+            <span>💬 3.8K сообщений</span>
+          </div>
+        </div>
+        <div class="category-last">
+          <span class="last-topic">IEM Katowice 2026 - обсуждение</span>
+          <span class="last-time">2 часа назад</span>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">🎨</div>
+        <div class="category-info">
+          <h3>Творчество</h3>
+          <p>Фан-арт, моды, скриншоты, видео</p>
+          <div class="category-stats">
+            <span>432 темы</span>
+            <span>💬 2.1K сообщений</span>
+          </div>
+        </div>
+        <div class="category-last">
+          <span class="last-topic">Мой первый фан-арт по Elden Ring</span>
+          <span class="last-time">3 часа назад</span>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">💬</div>
+        <div class="category-info">
+          <h3>Офтоп</h3>
+          <p>Общение на свободные темы, не связанные с играми</p>
+          <div class="category-stats">
+            <span>3.2K тем</span>
+            <span>💬 25K сообщений</span>
+          </div>
+        </div>
+        <div class="category-last">
+          <span class="last-topic">Что вы смотрите сейчас?</span>
+          <span class="last-time">5 часов назад</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Популярные темы -->
+    <div class="popular-topics">
+      <h2 class="section-title">Популярные темы</h2>
+      <div class="topics-list">
+        <div class="topic-item">
+          <div class="topic-icon">📌</div>
+          <div class="topic-info">
+            <a href="#" class="topic-title">Лучшие игры 2025 года - ваши рекомендации</a>
+            <div class="topic-meta">
+              <span>автор: ShadowMaster</span>
+              <span>💬 156 ответов</span>
+              <span>2.3K просмотров</span>
+            </div>
+          </div>
+          <div class="topic-last">
+            <span class="last-reply">Последний ответ: 5 минут назад</span>
+          </div>
+        </div>
+
+        <div class="topic-item">
+          <div class="topic-icon">📌</div>
+          <div class="topic-info">
+            <a href="#" class="topic-title">Проблемы с производительностью в новом патче</a>
+            <div class="topic-meta">
+              <span>автор: DragonSlayer</span>
+              <span>💬 89 ответов</span>
+              <span>1.5K просмотров</span>
+            </div>
+          </div>
+          <div class="topic-last">
+            <span class="last-reply">Последний ответ: 1 час назад</span>
+          </div>
+        </div>
+
+        <div class="topic-item">
+          <div class="topic-icon">📌</div>
+          <div class="topic-info">
+            <a href="#" class="topic-title">Какой контроллер выбрать для ПК?</a>
+            <div class="topic-meta">
+              <span>автор: ValorantPro</span>
+              <span>💬 234 ответа</span>
+              <span>4.1K просмотров</span>
+            </div>
+          </div>
+          <div class="topic-last">
+            <span class="last-reply">Последний ответ: 3 часа назад</span>
+          </div>
+        </div>
+
+        <div class="topic-item">
+          <div class="topic-icon">📌</div>
+          <div class="topic-info">
+            <a href="#" class="topic-title">Гайд для новичков в Dota 2</a>
+            <div class="topic-meta">
+              <span>автор: Gamer123</span>
+              <span>💬 67 ответов</span>
+              <span>987 просмотров</span>
+            </div>
+          </div>
+          <div class="topic-last">
+            <span class="last-reply">Последний ответ: вчера</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+        <!-- Страница профиля -->
+<div class="profile-page" style="display: none">
+  <div class="profile-container">
+    <div class="profile-left">
+      <div class="profile-avatar">
+        <img src="./img/default-avatar.png" alt="Avatar" id="profileAvatar">
+        <div class="profile-status-dot online"></div>
+      </div>
+      <div class="profile-name-wrapper">
+  <h2 class="profile-nickname" id="profileNickname">Никнейм</h2>
+  <button class="edit-nickname-btn" id="editNicknameBtn">✎</button>
+</div>
+<p class="profile-description-text">Описание отсутствует или скрыто пользователем</p>
+
+<div class="profile-online-status">
+  <span class="status-icon">⚫</span>
+  <span>Не в сети</span>
+</div>
+<p class="profile-last-seen">В сети 1 дн. назад</p>
+
+<div class="profile-badges">
+  <h3>Значки <span class="badges-count">3</span></h3>
+  <div class="badges-list">
+    <span class="badge">🏆</span>
+    <span class="badge">🎮</span>
+    <span class="badge">⭐</span>
+  </div>
+</div>
+      
+      <div class="profile-menu">
+        <button class="profile-menu-btn active" data-tab="games">Игры <span class="menu-count">5</span></button>
+        <button class="profile-menu-btn" data-tab="inventory">Инвентарь</button>
+        <button class="profile-menu-btn" data-tab="screenshots">Скриншоты <span class="menu-count">5</span></button>
+        <button class="profile-menu-btn" data-tab="videos">Видео</button>
+        <button class="profile-menu-btn" data-tab="workshop">Работы в мастерской</button>
+        <button class="profile-menu-btn" data-tab="reviews">Обзоры</button>
+        <button class="profile-menu-btn" data-tab="guides">Руководство</button>
+        <button class="profile-menu-btn" data-tab="illustrations">Иллюстрации</button>
+      </div>
+    </div>
+    
+    <div class="profile-right">
+  <h2 class="profile-section-title">Недавняя активность</h2>
+  <div class="profile-tab-content active" id="games">
+    <div class="game-item">
+      <div class="game-cover-small">
+        <img src="./img/CS2.webp" alt="Counter-Strike 2">
+      </div>
+      <div class="game-info">
+        <h4>Counter-Strike 2</h4>
+        <p>149 ч. всего</p>
+        <p class="game-last-played">последний запуск 25 мая</p>
+        <div class="game-years">
+          <span class="year-badge">2026</span>
+          <span class="year-badge">2025</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="game-item">
+      <div class="game-cover-small">
+        <img src="./img/DOTA 2.webp" alt="Dota 2">
+      </div>
+      <div class="game-info">
+        <h4>Dota 2</h4>
+        <p>267 ч. всего</p>
+        <p class="game-last-played">последний запуск 25 марта</p>
+        <div class="game-years">
+          <span class="year-badge">2026</span>
+          <span class="year-badge">2025</span>
+          <span class="year-badge">2024</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="game-item">
+      <div class="game-cover-small">
+        <img src="./img/PUBG.webp" alt="PUBG">
+      </div>
+      <div class="game-info">
+        <h4>PUBG</h4>
+        <p>318 ч. всего</p>
+        <p class="game-last-played">последний запуск 10 марта</p>
+        <div class="game-years">
+          <span class="year-badge">2026</span>
+          <span class="year-badge">2025</span>
+          <span class="year-badge">2024</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="game-item">
+      <div class="game-cover-small">
+        <img src="./img/RUST.webp" alt="Rust">
+      </div>
+      <div class="game-info">
+        <h4>Rust</h4>
+        <p>1048 ч. всего</p>
+        <p class="game-last-played">последний запуск 10 марта</p>
+        <div class="game-years">
+          <span class="year-badge">2026</span>
+          <span class="year-badge">2024</span>
+          <span class="year-badge">2023</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      <div class="profile-tab-content" id="inventory">
+        <div class="inventory-grid">
+          <div class="inventory-item">🔫 Скин AK-47</div>
+          <div class="inventory-item">📦 Кейс Dreams</div>
+        </div>
+      </div>
+      
+      <div class="profile-tab-content" id="screenshots">
+        <div class="screenshots-grid">
+          <div class="screenshot">📷 Скриншот 1</div>
+          <div class="screenshot">📷 Скриншот 2</div>
+          <div class="screenshot">📷 Скриншот 3</div>
+        </div>
+      </div>
+      
+      <div class="profile-tab-content" id="videos">
+        <p>Видео пока нет</p>
+      </div>
+      
+      <div class="profile-tab-content" id="workshop">
+        <p>Работы пока нет</p>
+      </div>
+      
+      <div class="profile-tab-content" id="reviews">
+        <p>Обзоры пока отсутствуют</p>
+      </div>
+      
+      <div class="profile-tab-content" id="guides">
+        <p>Руководства пока нет</p>
+      </div>
+      
+      <div class="profile-tab-content" id="illustrations">
+        <p>Иллюстрации пока отсутствуют</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="delete-confirm-modal" id="deleteConfirmModal">
+  <div class="delete-confirm-content">
+    <div class="delete-confirm-header">
+      <h3>Удаление игры</h3>
+      <button class="delete-confirm-close">×</button>
+    </div>
+    <div class="delete-confirm-body">
+      <p>Вы уверены, что хотите удалить игру <strong id="deleteGameTitle"></strong> из библиотеки?</p>
+      <p class="delete-warning">Это действие нельзя отменить.</p>
+    </div>
+    <div class="delete-confirm-footer">
+      <button class="delete-confirm-cancel">Отмена</button>
+      <button class="delete-confirm-ok">Удалить</button>
+    </div>
+  </div>
+</div>
+      </div>
+      <!-- Закрывающий тег для content -->
+    </div>
+    <!-- Закрывающий тег для app -->
+
+    <script src="./profile.js"></script>
+    <script src="./cloudgame.js"></script>
+    <script src="./swiper-bundle.js"></script>
+    <script src="./karusel.js"></script>
+    <script src="./shop.js"></script>
+    <script src="./script.js"></script>
+    <script src="./library.js"></script>
+    <script src="./setting.js"></script>
+    <script src="./poisk.js"></script>
+    <script src="./content.js"></script>
+    <script src="./library-add.js"></script>
+    <script src="./supports.js"></script>
+    <script src="./balance.js"></script>
+    <script src="./torrent-download.js"></script>
+    <script src="./avatar.js"></script>
+    <script src="./events.js"></script>
+    <script src="./groups.js"></script>
+    <script src="./language.js"></script>
+    <script src="./friends.js"></script>
+    <script src="./forums.js"></script>
+  </body>
+</html>

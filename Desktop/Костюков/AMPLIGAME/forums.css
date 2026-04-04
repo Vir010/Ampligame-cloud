@@ -1,0 +1,374 @@
+/* forums.css */
+
+.forums-page {
+  padding: 30px;
+  color: #fff;
+  min-height: 100vh;
+  margin-top: 80px;
+}
+
+.forums-container {
+  max-width: 1200px;
+  margin-right: 925px;
+}
+
+.forums-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.forums-title {
+  font-size: 32px;
+  color: #8f3ed1;
+  margin: 0;
+}
+
+.forums-search {
+  display: flex;
+  gap: 10px;
+}
+
+.forums-search input {
+  padding: 10px 15px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #fff;
+  width: 250px;
+}
+
+.forums-search input:focus {
+  outline: none;
+  border-color: #8f3ed1;
+}
+
+.forums-search-btn {
+  padding: 10px 20px;
+  background: #8f3ed1;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.forums-search-btn:hover {
+  background: #a110ce;
+}
+
+/* Категории */
+.forums-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 16px;
+  border: 1px solid #2a2a2a;
+  transition: all 0.2s;
+}
+
+.category-card:hover {
+  background: #222;
+  border-color: #8f3ed1;
+  transform: translateX(5px);
+}
+
+.category-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #8f3ed1, #a110ce);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.category-info {
+  flex: 1;
+}
+
+.category-info h3 {
+  font-size: 18px;
+  margin: 0 0 5px;
+  color: #fff;
+}
+
+.category-info p {
+  font-size: 13px;
+  color: #b4a8ff;
+  margin: 0 0 8px;
+}
+
+.category-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  color: #888;
+}
+
+.category-last {
+  text-align: right;
+  font-size: 12px;
+}
+
+.last-topic {
+  display: block;
+  color: #b4a8ff;
+  margin-bottom: 5px;
+}
+
+.last-time {
+  color: #666;
+}
+
+/* Популярные темы */
+.popular-topics {
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #2a2a2a;
+}
+
+.section-title {
+  font-size: 20px;
+  margin: 0 0 20px;
+  color: #8f3ed1;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 10px;
+}
+
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.topic-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background: #222;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.topic-item:hover {
+  background: #2a2a2a;
+  transform: translateX(5px);
+}
+
+.topic-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.topic-info {
+  flex: 1;
+}
+
+.topic-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.topic-title:hover {
+  color: #8f3ed1;
+}
+
+.topic-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 11px;
+  color: #888;
+}
+
+.topic-last {
+  text-align: right;
+  font-size: 11px;
+  color: #666;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .forums-page {
+    margin-top: 100px;
+    padding: 15px;
+  }
+  
+  .forums-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .forums-search {
+    width: 100%;
+  }
+  
+  .forums-search input {
+    flex: 1;
+  }
+  
+  .category-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .category-last {
+    text-align: center;
+  }
+  
+  .topic-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .topic-last {
+    text-align: center;
+  }
+  
+  .topic-meta {
+    justify-content: center;
+  }
+}
+
+/* ===== УЛУЧШЕННЫЙ ДИЗАЙН (БЕЗ СМЕЩЕНИЯ) ===== */
+
+/* Фон страницы */
+.forums-page {
+  background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+  border-radius: 25px;
+}
+
+/* Заголовок (градиент) */
+.forums-title {
+  font-size: 34px;
+  background: linear-gradient(90deg, #8f3ed1, #c77dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Поиск (glass эффект) */
+.forums-search input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(143, 62, 209, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.forums-search input:focus {
+  box-shadow: 0 0 10px rgba(143, 62, 209, 0.5);
+}
+
+/* Кнопка поиска */
+.forums-search-btn {
+  box-shadow: 0 0 10px rgba(143, 62, 209, 0.4);
+}
+
+.forums-search-btn:hover {
+  box-shadow: 0 0 20px rgba(143, 62, 209, 0.7);
+  transform: translateY(-1px);
+}
+
+/* Карточки категорий */
+.category-card {
+  background: linear-gradient(145deg, #1a1a1a, #202030);
+  border: 1px solid rgba(143, 62, 209, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Светящийся эффект */
+.category-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(143,62,209,0.2), transparent);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.category-card:hover::before {
+  opacity: 1;
+}
+
+/* Hover */
+.category-card:hover {
+  transform: translateX(8px) scale(1.01);
+  border-color: #8f3ed1;
+  box-shadow: 0 10px 30px rgba(143, 62, 209, 0.3);
+}
+
+/* Иконки */
+.category-icon {
+  box-shadow: 0 0 15px rgba(143, 62, 209, 0.6);
+}
+
+/* Популярные темы блок */
+.popular-topics {
+  background: linear-gradient(145deg, #1a1a1a, #202030);
+  border: 1px solid rgba(143, 62, 209, 0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Заголовок секции */
+.section-title {
+  border-bottom: 1px solid rgba(143, 62, 209, 0.3);
+}
+
+/* Темы */
+.topic-item {
+  background: linear-gradient(145deg, #1f1f2a, #252535);
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.topic-item:hover {
+  transform: translateX(6px);
+  border-color: rgba(143, 62, 209, 0.4);
+  box-shadow: 0 5px 20px rgba(143, 62, 209, 0.2);
+}
+
+/* Заголовки тем */
+.topic-title {
+  transition: 0.2s;
+}
+
+.topic-title:hover {
+  color: #c77dff;
+}
+
+/* Лёгкая анимация появления */
+.forums-container {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

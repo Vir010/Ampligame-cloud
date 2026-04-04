@@ -1,0 +1,629 @@
+/* events.css - исправленная версия */
+
+.events-page {
+  padding: 30px;
+  color: #fff;
+  min-height: 100vh;
+  margin-top: 80px;
+}
+
+.events-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 30px;
+}
+
+/* Левая колонка - киберспорт */
+.cybersport-news {
+  width: 300px;
+  background: linear-gradient(145deg, #1a1a1a, #222);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(143, 62, 209, 0.3);
+  height: fit-content;
+  flex-shrink: 0;
+  position: relative;
+  left: -230px;
+}
+
+/* Правая колонка */
+.events-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Заголовок */
+.events-title {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #d9b7f5;
+  text-align: center;
+}
+
+/* Вкладки */
+.events-tabs {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.events-tab-btn {
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid #8f3ed1;
+  border-radius: 30px;
+  color: #8f3ed1;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.events-tab-btn:hover {
+  background: rgba(143, 62, 209, 0.1);
+  transform: translateY(-2px);
+}
+
+.events-tab-btn.active {
+  background: #8f3ed1;
+  color: white;
+}
+
+.events-tab-content {
+  display: none;
+}
+
+.events-tab-content.active {
+  display: block;
+}
+
+/* Сетка событий */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+/* Карточка события */
+.event-card {
+  background: linear-gradient(145deg, #1a1a1a, #222);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  border-color: #8f3ed1;
+  box-shadow: 0 10px 30px rgba(143, 62, 209, 0.3);
+}
+
+.event-card.past {
+  opacity: 0.7;
+}
+
+.event-date {
+  min-width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #8f3ed1, #a110ce);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.event-day {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-month {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.event-info {
+  flex: 1;
+}
+
+.event-info h3 {
+  font-size: 18px;
+  margin: 0 0 8px 0;
+  color: #fff;
+}
+
+.event-desc {
+  color: #b4a8ff;
+  font-size: 14px;
+  margin: 0 0 12px 0;
+}
+
+.event-meta {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.event-time,
+.event-platform {
+  color: #888;
+  font-size: 13px;
+}
+
+/* Турниры */
+.tournaments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.tournaments-header h2 {
+  color: #fff;
+  font-size: 24px;
+}
+
+.create-tournament-btn {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #8f3ed1, #a110ce);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-tournament-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(143, 62, 209, 0.5);
+}
+
+.tournaments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.tournament-card {
+  background: linear-gradient(145deg, #1a1a1a, #222);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.tournament-card:hover {
+  transform: translateY(-5px);
+  border-color: #8f3ed1;
+  box-shadow: 0 10px 30px rgba(143, 62, 209, 0.3);
+}
+
+.tournament-image {
+  height: 100px;
+  background: linear-gradient(135deg, #2a1a3a, #1a1a2a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tournament-game {
+  font-size: 24px;
+  font-weight: 700;
+  color: #8f3ed1;
+  text-transform: uppercase;
+}
+
+.tournament-info {
+  padding: 20px;
+}
+
+.tournament-info h3 {
+  font-size: 18px;
+  margin: 0 0 15px 0;
+  color: #fff;
+}
+
+.tournament-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.tournament-details span {
+  color: #b4a8ff;
+  font-size: 14px;
+}
+
+.tournament-join-btn {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 2px solid #8f3ed1;
+  border-radius: 25px;
+  color: #8f3ed1;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tournament-join-btn:hover {
+  background: #8f3ed1;
+  color: white;
+}
+
+/* Стили для киберспорта */
+.news-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #8f3ed1;
+}
+
+.news-header h2 {
+  font-size: 22px;
+  color: #8f3ed1;
+  margin: 0;
+}
+
+.news-header span {
+  font-size: 12px;
+  color: #b4a8ff;
+  background: rgba(143, 62, 209, 0.2);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.news-item {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.news-item:last-child {
+  border-bottom: none;
+}
+
+.news-time {
+  color: #8f3ed1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.news-content h3 {
+  font-size: 16px;
+  margin: 0 0 5px 0;
+  color: #fff;
+}
+
+.news-content p {
+  font-size: 13px;
+  color: #b4a8ff;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.news-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.news-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: rgba(143, 62, 209, 0.2);
+  border-radius: 12px;
+  color: #b4a8ff;
+}
+
+.view-all-news {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.view-all-news button {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid #8f3ed1;
+  border-radius: 20px;
+  color: #8f3ed1;
+  font-size: 13px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.view-all-news button:hover {
+  background: #8f3ed1;
+  color: white;
+}
+
+/* Блок со стримами */
+.streams-block {
+  background: linear-gradient(145deg, #1a1a1a, #222);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 30px 0;
+  border: 1px solid rgba(143, 62, 209, 0.3);
+  position: relative;
+  left: -140px;
+}
+
+.streams-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #8f3ed1;
+}
+
+.streams-header h3 {
+  font-size: 24px;
+  color: #8f3ed1;
+  margin: 0;
+}
+
+.streams-count {
+  font-size: 12px;
+  color: #b4a8ff;
+  background: rgba(143, 62, 209, 0.2);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.streams-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.stream-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stream-card:hover {
+  transform: translateY(-5px);
+  border-color: #8f3ed1;
+  box-shadow: 0 5px 20px rgba(143, 62, 209, 0.2);
+}
+
+/* Стили для гифок в стримах */
+.stream-preview {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+  background: #000;
+}
+
+.stream-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.stream-card:hover .stream-preview img {
+  transform: scale(1.05);
+}
+
+.live-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff4444;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
+.stream-viewers {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+}
+
+.stream-info {
+  padding: 15px;
+  display: flex;
+  gap: 12px;
+}
+
+/* Аватарки стримеров */
+.streamer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #8f3ed1, #a110ce);
+  flex-shrink: 0;
+}
+
+.streamer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stream-details {
+  flex: 1;
+}
+
+.stream-details h4 {
+  font-size: 16px;
+  margin: 0 0 5px 0;
+  color: #fff;
+}
+
+.stream-details p {
+  font-size: 13px;
+  color: #b4a8ff;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.stream-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Цветные теги для игр */
+.stream-tag {
+  font-size: 10px;
+  padding: 3px 8px;
+  background: rgba(143, 62, 209, 0.2);
+  border-radius: 12px;
+  color: #b4a8ff;
+}
+
+.stream-tag.cs2 {
+  background: rgba(255, 87, 34, 0.2);
+  color: #ff5722;
+}
+
+.stream-tag.dota2 {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.stream-tag.valorant {
+  background: rgba(233, 30, 99, 0.2);
+  color: #e91e63;
+}
+
+.all-streams-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.all-streams-btn {
+  padding: 8px 25px;
+  background: transparent;
+  border: 1px solid #8f3ed1;
+  border-radius: 25px;
+  color: #8f3ed1;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.all-streams-btn:hover {
+  background: #8f3ed1;
+  color: white;
+  transform: scale(1.02);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .events-container {
+    flex-direction: column;
+  }
+
+  .cybersport-news {
+    width: 100%;
+    left: 0;
+  }
+
+  .streams-block {
+    left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .events-page {
+    margin-top: 100px;
+    padding: 15px;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tournaments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tournaments-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .event-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .event-meta {
+    justify-content: center;
+  }
+
+  .streams-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .streams-list {
+    grid-template-columns: 1fr;
+  }
+
+  .stream-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .streamer-avatar {
+    margin: 0 auto;
+  }
+
+  .stream-tags {
+    justify-content: center;
+  }
+}
