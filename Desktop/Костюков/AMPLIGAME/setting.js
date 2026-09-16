@@ -226,3 +226,61 @@ function showNotification(message, type = 'success') {
     notification.remove();
   }, 3000);
 }
+
+// Функция применения темы
+function applyTheme(theme) {
+  document.body.classList.remove(
+    'theme-light',
+    'theme-maroon',
+    'theme-blue',
+    'theme-dark'
+  );
+
+  // "default" = стандартная тема без классов
+  if (theme !== 'default') {
+    document.body.classList.add(`theme-${theme}`);
+  }
+
+  localStorage.setItem('app_theme', theme);
+}
+
+// Загрузка сохраненной темы
+function loadTheme() {
+  const savedTheme = localStorage.getItem('app_theme') || 'default';
+  applyTheme(savedTheme);
+
+  const themeOptions = document.querySelectorAll('.theme-option');
+  themeOptions.forEach(option => {
+    const themeValue = option.getAttribute('data-theme');
+    option.classList.toggle('active', themeValue === savedTheme);
+  });
+}
+
+// Инициализация выбора темы
+function initThemeSelector() {
+  const themeOptions = document.querySelectorAll('.theme-option');
+  const saveThemeBtn = document.getElementById('saveThemeBtn');
+
+  let selectedTheme = localStorage.getItem('app_theme') || 'default';
+
+  themeOptions.forEach(option => {
+    option.addEventListener('click', function () {
+      themeOptions.forEach(opt => opt.classList.remove('active'));
+      this.classList.add('active');
+      selectedTheme = this.getAttribute('data-theme');
+    });
+  });
+
+  if (saveThemeBtn) {
+    saveThemeBtn.addEventListener('click', function () {
+      applyTheme(selectedTheme);
+      showNotification('Тема сохранена', 'success');
+    });
+  }
+}
+
+// Запуск
+document.addEventListener('DOMContentLoaded', function () {
+  loadTheme();
+  initThemeSelector();
+});

@@ -53,12 +53,4 @@ document.addEventListener('DOMContentLoaded', function() {
       showNotification('Страница темы откроется позже', 'info');
     });
   });
-  
-  document.querySelectorAll('.sidebar-btn').forEach(btn => {
-    if (btn.id !== 'btn-community' && !btn.querySelector('.dropdown-link')) {
-      btn.addEventListener('click', function() {
-        if (forumsPage) forumsPage.style.display = 'none';
-      });
-    }
-  });
 });

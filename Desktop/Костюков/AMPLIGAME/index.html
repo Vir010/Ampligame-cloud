@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AMPLIGAME</title>
+    <d
     <link
       href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -73,12 +74,12 @@
           </li>
           <li class="sidebar-btn bottom" id="btn-setting">
             <a href="#">
-              <img src="setting.svg" alt="" class="icon" />Setting</a
+              <img src="setting.svg" alt="" class="icon">Setting</a
             >
           </li>
           <li class="sidebar-btn" id="btn-support">
             <a href="#">
-              <img src="supports.svg" alt="" class="icon" />Supports</a
+              <img src="supports.svg" alt="" class="icon">Supports</a
             >
           </li>
         </ul>
@@ -92,7 +93,6 @@
           </div>
         </div>
 
-        <!-- Баланс пользователя -->
         <div class="balance-container">
           <div class="balance-card">
             <span class="balance-label">Ваш баланс</span>
@@ -103,7 +103,6 @@
           </div>
         </div>
 
-        <!-- Модальное окно пополнения баланса -->
         <div class="balance-modal" id="balanceModal">
           <div class="balance-modal-content">
             <div class="balance-modal-header">
@@ -189,25 +188,25 @@
                 <img src="./img/Rectangle 67.svg" />
               </div>
               <div class="swiper-slide">
-                <img src="./img/Rectangle 68.svg" />
+                <img src="./img/Rectangle 68.svg">
               </div>
               <div class="swiper-slide">
-                <img src="./img/Rectangle 69.svg" />
+                <img src="./img/Rectangle 69.svg">
               </div>
               <div class="swiper-slide">
-                <img src="./img/Rectangle 70.svg" />
+                <img src="./img/Rectangle 70.svg">
               </div>
               <div class="swiper-slide">
-                <img src="./img/Rectangle 71.svg" />
+                <img src="./img/Rectangle 71.svg">
               </div>
               <div class="swiper-slide">
-                <img src="./img/Rectangle 72.svg" />
+                <img src="./img/Rectangle 72.svg">
               </div>
               <div class="swiper-slide">
-                <img src="./img/Rectangle 73.svg" />
+                <img src="./img/Rectangle 73.svg">
               </div>
               <div class="swiper-slide">
-                <img src="./img/Rectangle 80.svg" />
+                <img src="./img/Rectangle 80.svg">
               </div>
             </div>
           </div>
@@ -614,7 +613,7 @@
                   </div>
                   <div class="form-group">
                     <label>Аватар</label>
-                    <input type="file" accept="image/*" />
+                    <input type="file" accept="image/*">
                   </div>
                   <button class="settings-save-btn">Сохранить изменения</button>
                 </div>
@@ -691,20 +690,34 @@
                  </div>
                </div>
 
-              <div class="settings-tab" id="tab-theme" style="display: none">
-                <h3>Тема оформления</h3>
-                <div class="settings-form">
-                  <div class="form-group">
-                    <label>Выберите тему</label>
-                    <select>
-                      <option>Тёмная</option>
-                      <option>Светлая</option>
-                      <option>Системная</option>
-                    </select>
-                  </div>
-                  <button class="settings-save-btn">Сохранить изменения</button>
-                </div>
-              </div>
+              <!-- Тема оформления -->
+<div class="settings-tab" id="tab-theme" style="display: none">
+  <h3>Тема оформления</h3>
+  <div class="settings-form">
+    <div class="form-group">
+      <label>Выберите тему интерфейса</label>
+      <div class="theme-options">
+        <div class="theme-option active" data-theme="default">
+          <div class="theme-preview dark-preview"></div>
+          <span>Стандартная</span>
+        </div>
+        <div class="theme-option" data-theme="light">
+          <div class="theme-preview light-preview"></div>
+          <span>Светлая</span>
+        </div>
+        <div class="theme-option" data-theme="maroon">
+          <div class="theme-preview maroon-preview"></div>
+          <span>Бордовая</span>
+        </div>
+        <div class="theme-option" data-theme="blue">
+          <div class="theme-preview blue-preview"></div>
+          <span>Синяя</span>
+        </div>
+      </div>
+    </div>
+    <button class="settings-save-btn" id="saveThemeBtn">Сохранить тему</button>
+  </div>
+</div>
 
               <div class="settings-tab" id="tab-security" style="display: none">
                 <h3>Безопасность</h3>
