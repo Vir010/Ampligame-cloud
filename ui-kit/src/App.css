@@ -1,0 +1,17 @@
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  font-family: sans-serif;
+}
+
+.app__section {
+  margin-bottom: 32px;
+}
+
+.app__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
