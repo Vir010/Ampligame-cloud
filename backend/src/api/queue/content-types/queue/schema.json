@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "queues",
+  "info": {
+    "singularName": "queue",
+    "pluralName": "queues",
+    "displayName": "Queue"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "position": { "type": "integer" },
+    "joinedAt": { "type": "datetime" },
+    "status": {
+      "type": "enumeration",
+      "enum": ["waiting", "playing", "finished"],
+      "default": "waiting"
+    }
+  }
+}

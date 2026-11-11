@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sessions",
+  "info": {
+    "singularName": "session",
+    "pluralName": "sessions",
+    "displayName": "Session"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "tariff": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tariff.tariff"
+    },
+    "startedAt": { "type": "datetime" },
+    "endedAt": { "type": "datetime" },
+    "minutesUsed": { "type": "integer", "default": 0 },
+    "minutesTotal": { "type": "integer" },
+    "status": {
+      "type": "enumeration",
+      "enum": ["active", "finished", "paused"],
+      "default": "active"
+    }
+  }
+}

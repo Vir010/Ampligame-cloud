@@ -1,53 +1,44 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getItem, setItem } from "@/lib/storage";
+import { startCloudSession, getActiveSession } from "@/lib/cloudApi";
 import { showToast } from "@/lib/toast";
 
 interface TariffCardProps {
   tariff: any;
+  onPurchase?: () => void;
 }
 
-export default function TariffCard({ tariff }: TariffCardProps) {
+export default function TariffCard({ tariff, onPurchase }: TariffCardProps) {
   const [isCurrent, setIsCurrent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const currentTariff = getItem("user_active_tariff");
-    setIsCurrent(currentTariff === tariff.documentId);
-  }, [tariff.documentId]);
+    getActiveSession()
+      .then((res) => {
+        if (res?.session?.tariff?.Title === tariff.Title) setIsCurrent(true);
+      })
+      .catch(() => {});
+  }, [tariff.Title]);
 
-  const handleBuy = () => {
-    // Если этот тариф уже активен, ничего не делаем
-    if (isCurrent) return;
-
-    const balance = parseInt(getItem("user_balance") || "0");
-    const price = parseInt(String(tariff.Price).replace(/[^\d]/g, ""));
-
-    if (balance < price) {
-      showToast(
-        `Недостаточно средств. Нужно ещё ${price - balance} ₽`,
-        "error"
-      );
-      return;
+  const handleBuy = async () => {
+    if (isCurrent || loading) return;
+    setLoading(true);
+    try {
+      await startCloudSession(tariff.documentId);
+      showToast(`Тариф "${tariff.Title}" активирован!`, "success");
+      setIsCurrent(true);
+      if (onPurchase) onPurchase();
+    } catch (err: any) {
+      showToast(err.message || "Ошибка покупки", "error");
+    } finally {
+      setLoading(false);
     }
-
-    // Списываем деньги и активируем тариф
-    setItem("user_balance", String(balance - price));
-    setItem("user_active_tariff", tariff.documentId);
-
-    setIsCurrent(true);
-    showToast(`Тариф "${tariff.Title}" активирован!`, "success");
-
-    // Перезагрузка для обновления баланса в шапке
-    setTimeout(() => window.location.reload(), 1000);
   };
 
-  // Берем строку из features_list и разбиваем на массив по переносу строки
   const rawFeatures = tariff.features_list || "";
   const featuresList =
-    typeof rawFeatures === "string"
-      ? rawFeatures.split("\n").filter(Boolean)
-      : [];
+    typeof rawFeatures === "string" ? rawFeatures.split("\n").filter(Boolean) : [];
 
   return (
     <div
@@ -57,54 +48,25 @@ export default function TariffCard({ tariff }: TariffCardProps) {
         borderRadius: "20px",
         padding: "30px",
         color: "#fff",
-        // Убрали opacity: 0, чтобы карточки не пропадали
         border: isCurrent ? "2px solid #4caf50" : "1px solid #4a2c6d",
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        minHeight: "350px", // Чтобы карточки были одинаковыми по высоте
+        minHeight: "350px",
       }}
     >
-      <h3
-        style={{ fontSize: "24px", margin: "0 0 20px 0", textAlign: "center" }}
-      >
-        {tariff.Title}
-      </h3>
-
-      <ul
-        style={{
-          flex: 1,
-          paddingLeft: "20px",
-          color: "#ccc",
-          lineHeight: 1.8,
-          marginBottom: "20px",
-          fontSize: "14px",
-        }}
-      >
+      <h3 style={{ fontSize: "24px", margin: "0 0 20px 0", textAlign: "center" }}>{tariff.Title}</h3>
+      <ul style={{ flex: 1, paddingLeft: "20px", color: "#ccc", lineHeight: 1.8, marginBottom: "20px", fontSize: "14px" }}>
         {featuresList.map((feature: string, idx: number) => (
-          <li key={idx} style={{ marginBottom: "8px" }}>
-            {feature}
-          </li>
+          <li key={idx} style={{ marginBottom: "8px" }}>{feature}</li>
         ))}
       </ul>
-
-      <div
-        style={{
-          fontSize: "28px",
-          fontWeight: "bold",
-          marginBottom: "15px",
-          textAlign: "center",
-        }}
-      >
-        {tariff.Price} ₽
-        <span style={{ fontSize: "16px", color: "#888", fontWeight: "normal" }}>
-          /мес
-        </span>
+      <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "15px", textAlign: "center" }}>
+        {tariff.Price} ₽<span style={{ fontSize: "16px", color: "#888", fontWeight: "normal" }}>/мес</span>
       </div>
-
       <button
         onClick={handleBuy}
-        disabled={isCurrent}
+        disabled={isCurrent || loading}
         style={{
           width: "100%",
           padding: "15px",
@@ -114,10 +76,11 @@ export default function TariffCard({ tariff }: TariffCardProps) {
           color: "#fff",
           fontSize: "16px",
           fontWeight: "bold",
-          cursor: isCurrent ? "default" : "pointer",
+          cursor: isCurrent || loading ? "default" : "pointer",
+          opacity: loading ? 0.6 : 1,
         }}
       >
-        {isCurrent ? "Активен" : "Купить"}
+        {loading ? "Загрузка..." : isCurrent ? "Активен" : "Купить"}
       </button>
     </div>
   );

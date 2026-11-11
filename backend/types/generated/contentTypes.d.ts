@@ -920,6 +920,38 @@ export interface ApiPopularTopicPopularTopic
   };
 }
 
+export interface ApiQueueQueue extends Struct.CollectionTypeSchema {
+  collectionName: 'queues';
+  info: {
+    displayName: 'Queue';
+    pluralName: 'queues';
+    singularName: 'queue';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    joinedAt: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::queue.queue'> &
+      Schema.Attribute.Private;
+    position: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<['waiting', 'playing', 'finished']> &
+      Schema.Attribute.DefaultTo<'waiting'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiRequirementRequirement extends Struct.CollectionTypeSchema {
   collectionName: 'requirements';
   info: {
@@ -946,6 +978,44 @@ export interface ApiRequirementRequirement extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     value: Schema.Attribute.String;
+  };
+}
+
+export interface ApiSessionSession extends Struct.CollectionTypeSchema {
+  collectionName: 'sessions';
+  info: {
+    displayName: 'Session';
+    pluralName: 'sessions';
+    singularName: 'session';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    endedAt: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::session.session'
+    > &
+      Schema.Attribute.Private;
+    minutesTotal: Schema.Attribute.Integer;
+    minutesUsed: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    startedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<['active', 'finished', 'paused']> &
+      Schema.Attribute.DefaultTo<'active'>;
+    tariff: Schema.Attribute.Relation<'manyToOne', 'api::tariff.tariff'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1507,6 +1577,8 @@ export interface PluginUsersPermissionsUser
     timestamps: true;
   };
   attributes: {
+    activeTariff: Schema.Attribute.Relation<'oneToOne', 'api::tariff.tariff'>;
+    balance: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10000>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1574,7 +1646,9 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::group.group': ApiGroupGroup;
       'api::popular-topic.popular-topic': ApiPopularTopicPopularTopic;
+      'api::queue.queue': ApiQueueQueue;
       'api::requirement.requirement': ApiRequirementRequirement;
+      'api::session.session': ApiSessionSession;
       'api::stream.stream': ApiStreamStream;
       'api::tariff.tariff': ApiTariffTariff;
       'api::useful-link.useful-link': ApiUsefulLinkUsefulLink;
