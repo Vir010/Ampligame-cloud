@@ -1,5 +1,5 @@
 /**
- * game router
+ * game router.
  */
 
 import { factories } from '@strapi/strapi';

@@ -35,8 +35,8 @@ export default function ForumTopicPage() {
     if (!foundTopic) {
       // Если темы нет (например, переход по старой ссылке), берем дефолтную
       const defaults: Topic[] = [
-        { id: 't1', title: 'Лучшие игры 2025 года', content: 'Обсудим?', author: 'ShadowMaster', category: 'general', replies: 156, views: 2300, date: '5 минут назад' },
-        { id: 't2', title: 'Проблемы с производительностью', content: 'Помогите', author: 'DragonSlayer', category: 'help', replies: 89, views: 1500, date: '1 час назад' },
+        { id: 't1', title: 'Лучшие игры 2025 года', content: 'Обсудим?', author: 'ShadowMaster', category: 'general', replies: '156', views: '2300', date: '5 минут назад' },
+        { id: 't2', title: 'Проблемы с производительностью', content: 'Помогите', author: 'DragonSlayer', category: 'help', replies: '89', views: '1500', date: '1 час назад' },
       ];
       const fallbackTopic = defaults.find(t => t.id === topicId);
       if (fallbackTopic) {

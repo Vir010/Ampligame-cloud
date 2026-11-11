@@ -42,3 +42,12 @@ NEXT_PUBLIC_STRAPI_URL=http://127.0.0.1:1337
 cd backend && npm run build
 cd ../frontend && npm run build
 ```
+
+## Денежная логика
+
+Кошелёк, история транзакций и покупки игр: `docs/payments.md`.
+Защита от двойного списания — транзакции PostgreSQL с `SELECT ... FOR UPDATE`, уникальные индексы и `CHECK (balance >= 0)`.
+
+```bash
+cd backend && node tests/money-e2e.js   # проверка денежной логики
+```

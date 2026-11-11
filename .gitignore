@@ -37,3 +37,8 @@ Thumbs.db
 *.tsbuildinfo
 next-env.d.ts
 .eslintcache
+
+# Runtime logs
+*.err
+start.log
+next.log

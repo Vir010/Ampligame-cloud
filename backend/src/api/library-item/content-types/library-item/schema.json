@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "library_items",
+  "info": {
+    "singularName": "library-item",
+    "pluralName": "library-items",
+    "displayName": "LibraryItem"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "wallet": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::wallet.wallet",
+      "inversedBy": "libraryItems"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game.game"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["owned", "installed", "refunded"],
+      "default": "owned",
+      "required": true
+    },
+    "pricePaid": {
+      "type": "integer"
+    },
+    "purchasedAt": {
+      "type": "datetime"
+    }
+  }
+}

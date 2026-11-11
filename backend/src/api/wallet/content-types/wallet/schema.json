@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "wallets",
+  "info": {
+    "singularName": "wallet",
+    "pluralName": "wallets",
+    "displayName": "Wallet"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "balance": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "RUB"
+    },
+    "transactions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::transaction.transaction",
+      "mappedBy": "wallet"
+    },
+    "libraryItems": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::library-item.library-item",
+      "mappedBy": "wallet"
+    }
+  }
+}

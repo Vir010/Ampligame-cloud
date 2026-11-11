@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getJSON, setJSON, getItem, setItem } from "@/lib/storage";
+import { getCurrentUser } from "@/lib/auth";
 import { addUserPoints, checkAchievements } from "@/lib/achievements";
 import { grantCardsForGame } from "@/lib/steamCards";
 import { showToast } from "@/lib/toast";
+import { fetchLibrary, purchaseGame, purchaseReference } from "@/lib/wallet";
 
 interface BuyButtonProps {
   gameId: string;
@@ -13,59 +14,65 @@ interface BuyButtonProps {
   image?: string;
 }
 
-export default function BuyButton({
-  gameId,
-  title,
-  price,
-  image,
-}: BuyButtonProps) {
+export default function BuyButton({ gameId, title, price }: BuyButtonProps) {
   const [purchased, setPurchased] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [busy, setBusy] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
     setMounted(true);
-    const library = getJSON<Array<{ id: string }>>("user_game_library", []);
-    setPurchased(library.some((g) => g.id === gameId));
+
+    fetchLibrary()
+      .then((items) => {
+        if (cancelled) return;
+        const owned = items.some(
+          (i) =>
+            i.status !== "refunded" &&
+            (i.game?.documentId === gameId || String(i.game?.id) === gameId)
+        );
+        setPurchased(owned);
+      })
+      .catch(() => {
+        /* не авторизован — кнопка останется активной, ошибка придёт при покупке */
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [gameId]);
 
-  const handleBuy = () => {
-    const balance = parseInt(getItem("user_balance") || "1000");
-    const priceNum = parseInt(price.replace(/[^\d]/g, ""));
+  const handleBuy = async () => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      const user = getCurrentUser();
+      if (!user) {
+        showToast("Войдите в аккаунт, чтобы купить игру", "error");
+        return;
+      }
 
-    if (balance < priceNum) {
+      const result = await purchaseGame(gameId, purchaseReference(user.id, gameId));
+
+      addUserPoints(50);
+      checkAchievements();
+      const grantedCards = grantCardsForGame(gameId, title);
+
+      setPurchased(true);
       showToast(
-        `Недостаточно средств. Нужно ещё ${priceNum - balance} ₽`,
-        "error"
+        `Игра "${title}" куплена! Баланс: ${result.balance} ₽, +50 поинтов, +${grantedCards} карточек`,
+        "success"
       );
-      return;
+    } catch (err: any) {
+      const message = err?.message || "Не удалось выполнить покупку";
+      if (err?.status === 400 && /недостаточно/i.test(message)) {
+        showToast(`Недостаточно средств. ${message}`, "error");
+      } else {
+        showToast(message, "error");
+      }
+    } finally {
+      setBusy(false);
     }
-
-    const library = getJSON<Array<any>>("user_game_library", []);
-    if (library.some((g) => g.id === gameId)) {
-      showToast("Игра уже куплена", "info");
-      return;
-    }
-
-    setItem("user_balance", String(balance - priceNum));
-
-    library.push({
-      id: gameId,
-      title,
-      price,
-      image: image || "/placeholder.png",
-      purchaseDate: new Date().toLocaleDateString("ru-RU"),
-    });
-    setJSON("user_game_library", library);
-
-    addUserPoints(50);
-    checkAchievements();
-    const grantedCards = grantCardsForGame(gameId, title);
-
-    setPurchased(true);
-    showToast(
-      `Игра "${title}" куплена! +50 очков, +${grantedCards} карточек`,
-      "success"
-    );
   };
 
   if (!mounted)
@@ -82,8 +89,8 @@ export default function BuyButton({
     );
 
   return (
-    <button className="product-buy-btn sellgame1" onClick={handleBuy}>
-      Купить
+    <button className="product-buy-btn sellgame1" onClick={handleBuy} disabled={busy}>
+      {busy ? "Обработка..." : "Купить"}
     </button>
   );
 }

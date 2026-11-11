@@ -9,6 +9,7 @@ const config: Core.Config.Middlewares = [
   'strapi::query',
   'strapi::body',
   'strapi::session',
+  'global::wallet-auth',
   'strapi::favicon',
   'strapi::public',
 ];
