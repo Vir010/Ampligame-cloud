@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "popular_topics",
+  "info": {
+    "singularName": "popular-topic",
+    "pluralName": "popular-topics",
+    "displayName": "PopularTopic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "replies": {
+      "type": "integer"
+    },
+    "views": {
+      "type": "string"
+    },
+    "lastReply": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cybersport_news_items",
+  "info": {
+    "singularName": "cybersport-news-item",
+    "pluralName": "cybersport-news-items",
+    "displayName": "cybersport-news-items"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "time": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "tags": {
+      "type": "string"
+    }
+  }
+}

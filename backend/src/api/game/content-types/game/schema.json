@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "games",
+  "info": {
+    "singularName": "game",
+    "pluralName": "games",
+    "displayName": "Game"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Price": {
+      "type": "integer"
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "developer": {
+      "type": "string"
+    },
+    "game_year": {
+      "type": "integer"
+    },
+    "Genre": {
+      "type": "string"
+    },
+    "Platform": {
+      "type": "string"
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Cover": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "isSale": {
+      "type": "boolean"
+    },
+    "oldPrice": {
+      "type": "integer"
+    },
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner",
+      "mappedBy": "game"
+    }
+  }
+}

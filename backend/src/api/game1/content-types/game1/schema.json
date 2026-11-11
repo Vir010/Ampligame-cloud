@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "game1s",
+  "info": {
+    "singularName": "game1",
+    "pluralName": "game1s",
+    "displayName": "Game1"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "isSale": {
+      "type": "boolean"
+    },
+    "oldPrice": {
+      "type": "integer"
+    }
+  }
+}

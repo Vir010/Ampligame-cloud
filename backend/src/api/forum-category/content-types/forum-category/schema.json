@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forum_categories",
+  "info": {
+    "singularName": "forum-category",
+    "pluralName": "forum-categories",
+    "displayName": "ForumCategory"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "category_title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "TopicsCount": {
+      "type": "string"
+    },
+    "MessagesCount": {
+      "type": "string"
+    },
+    "LastTopic": {
+      "type": "string"
+    },
+    "LastTime": {
+      "type": "string"
+    },
+    "Icon": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

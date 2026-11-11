@@ -1,0 +1,354 @@
+/* Добавьте этот CSS в ваш файл стилей или в тег <style> */
+.settings-container {
+  display: flex;
+  gap: 30px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 500px;
+}
+
+.settings-sidebar {
+  width: 200px;
+  border-right: 1px solid #333;
+}
+
+.settings-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.settings-menu-item {
+  padding: 12px 15px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.settings-menu-item:hover {
+  background: #660261;
+  color: #fff;
+}
+
+.settings-menu-item.active {
+  background: #8b048b;
+  color: #fff;
+}
+
+.settings-content {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.settings-tab h3 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.settings-form {
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #888;
+  font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  background: #8f78aa;
+  border: 1px solid #726679;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #7f4ae2;
+}
+
+.form-group.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.form-group.checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.settings-save-btn {
+  padding: 12px 25px;
+  background: #8f78aa;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 20px;
+}
+
+.settings-save-btn:hover {
+  background: #7f4ae2;
+}
+
+.settings-info {
+  color: #888;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.settings-tab {
+  display: none;
+}
+
+.settings-tab.active {
+  display: block;
+}
+
+.settings-container {
+  display: flex;
+  gap: 30px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 500px;
+}
+
+.settings-sidebar {
+  width: 200px;
+  border-right: 1px solid #333;
+}
+
+.settings-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.settings-menu-item {
+  padding: 12px 15px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.settings-menu-item:hover {
+  background: #660261;
+  color: #fff;
+}
+
+.settings-menu-item.active {
+  background: #8b048b;
+  color: #fff;
+}
+
+.settings-content {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.settings-tab h3 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.settings-form {
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #888;
+  font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  background: #8f78aa;
+  border: 1px solid #726679;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #7f4ae2;
+}
+
+.form-group.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.form-group.checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.settings-save-btn {
+  padding: 12px 25px;
+  background: #8f78aa;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 20px;
+}
+
+.settings-save-btn:hover {
+  background: #7f4ae2;
+}
+
+.settings-info {
+  color: #888;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.settings-tab {
+  display: none;
+}
+
+.settings-tab.active {
+  display: block;
+}
+
+.theme-options {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.theme-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.theme-option.active {
+  background: rgba(143, 62, 209, 0.2);
+  border: 1px solid #8f3ed1;
+}
+
+.theme-preview {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.theme-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dark-preview::before {
+  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+  box-shadow: inset 0 0 5px #8f3ed1;
+}
+
+.light-preview::before {
+  background: linear-gradient(135deg, #aaa9a9, #c9c2c2);
+  box-shadow: inset 0 0 5px #4e4d4d;
+}
+
+.maroon-preview::before {
+  background: linear-gradient(135deg, #3a1520, #2a0a15);
+  box-shadow: inset 0 0 5px #b4283c;
+}
+
+.blue-preview::before {
+  background: linear-gradient(135deg, #103a64, #0e224b);
+  box-shadow: inset 0 0 5px #2152f3;
+}
+
+.theme-option span {
+  font-size: 13px;
+  color: #b4a8ff;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .theme-options {
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .theme-preview {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .theme-option span {
+    font-size: 11px;
+  }
+}
