@@ -1,0 +1,266 @@
+/* ===================== */
+/* 📱 МОБИЛЬНЫЕ УСТРОЙСТВА (до 767px) */
+/* ===================== */
+@media (max-width: 767px) {
+
+  /* ❌ Отключаем свайпер */
+  .swiper,
+  .swiperTop,
+  .swiperBottom,
+  .swiper-wrapper,
+  .swiper-slide {
+    display: none !important;
+  }
+
+  /* ❌ Убираем hover-эффекты только у карточек (не глобально) */
+  .game-card:hover,
+  .library-card:hover,
+  .group-card:hover,
+  .event-card:hover,
+  .friend-item:hover,
+  .topic-item:hover,
+  .stream-card:hover,
+  .tournament-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* ❌ Отключаем анимации у декоративных элементов, но НЕ у модалок и уведомлений */
+  .game-card,
+  .library-card,
+  .group-card,
+  .event-card,
+  .friend-item,
+  .topic-item,
+  .stream-card,
+  .tournament-card,
+  .sidebar-btn,
+  .balance-card {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* ===================== */
+  /* 🎮 СЕТКА ИГР */
+  /* ===================== */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .game-card {
+    padding: 10px;
+  }
+
+  .game-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+
+  .game-card h4 {
+    font-size: 13px;
+    margin: 8px 0 4px;
+  }
+
+  .game-card .price {
+    font-size: 14px;
+  }
+
+  /* ===================== */
+  /* 📌 SIDEBAR */
+  /* ===================== */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 65px;
+    height: 100vh;
+    background: rgb(5, 0, 56);
+    padding: 15px 5px;
+    z-index: 1000;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sidebar-btn a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+  }
+
+  .sidebar-btn .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .sidebar-menu,
+  .sidebar-btn .arrow {
+    display: none;
+  }
+
+  /* ❌ Скрываем вкладку Community на мобильных */
+  #btn-community {
+    display: none !important;
+  }
+
+  /* ===================== */
+  /* 📄 КОНТЕНТ (FIX перекрытия) */
+  /* ===================== */
+  .content {
+    margin-left: 65px;
+    padding: 70px 15px 15px;
+  }
+
+  /* ===================== */
+  /* 💰 БАЛАНС (FIX перекрытия) */
+  /* ===================== */
+  .balance-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    max-width: calc(100vw - 90px);
+  }
+
+  .balance-label {
+    display: none;
+  }
+
+  .balance-card {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .balance-amount {
+    max-width: 120px;
+    font-size: 16px;
+  }
+
+  /* ===================== */
+  /* 🔍 ПОИСК */
+  /* ===================== */
+  .search {
+    display: none !important;
+  }
+
+  /* ===================== */
+  /* 🧭 ВКЛАДКИ (FIX адаптива) */
+  /* ===================== */
+  .tabs,
+  .events-tabs,
+  .groups-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 5px;
+  }
+
+  .tabs::-webkit-scrollbar,
+  .events-tabs::-webkit-scrollbar,
+  .groups-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabs button,
+  .events-tab-btn,
+  .groups-tab-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  /* ===================== */
+  /* 🛒 СТРАНИЦА ТОВАРА */
+  /* ===================== */
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-title {
+    font-size: 22px;
+  }
+
+  .product-price {
+    font-size: 22px;
+  }
+
+  .product-buy-btn {
+    width: 100%;
+  }
+
+  /* ===================== */
+  /* ☁️ CLOUD GAMING */
+  /* ===================== */
+  .cloud-page {
+    padding: 10px;
+    margin-top: 60px;
+  }
+
+  .cloud-page .tariff-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .tariff-card {
+    padding: 15px;
+    border-radius: 20px;
+  }
+
+  .tariff-card h3 {
+    font-size: 20px;
+  }
+
+  .tariff-card .price {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .tariff-card .buy-btn {
+    width: 100%;
+  }
+
+  /* ===================== */
+  /* 📚 БИБЛИОТЕКА */
+  /* ===================== */
+  .library-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+  }
+
+  .library-page::before {
+    content: none;
+  }
+
+  .library-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .library-card {
+    padding: 10px;
+    border-radius: 12px;
+    background: #1a1a1a;
+  }
+
+  .library-card h4 {
+    font-size: 14px;
+    margin: 6px 0 4px;
+  }
+}

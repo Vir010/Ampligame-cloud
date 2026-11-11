@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "requirements",
+  "info": {
+    "singularName": "requirement",
+    "pluralName": "requirements",
+    "displayName": "Requirement"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}

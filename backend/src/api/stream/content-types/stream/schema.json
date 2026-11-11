@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "streams",
+  "info": {
+    "singularName": "stream",
+    "pluralName": "streams",
+    "displayName": "Stream"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "streamer": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "viewers": {
+      "type": "string"
+    },
+    "game": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "string"
+    },
+    "preview": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

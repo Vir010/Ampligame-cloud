@@ -1,0 +1,179 @@
+.cloud-page {
+  display: none;
+  padding: 60px 40px;
+  color: white;
+}
+
+.cloud-mini {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.cloud-title {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 80px;
+}
+
+.cloud-features {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.cloud-item {
+  flex: 1;
+  text-align: center;
+}
+
+.cloud-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cloud-icon img {
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+}
+
+.cloud-item p {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+#btn-cloud a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+}
+
+#btn-cloud.active {
+    background-color: #48396d;
+    border-radius: 10px;
+}
+
+#btn-cloud.active a {
+    color: white;
+}
+
+.cloud-page h3 {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.cloud-page p {
+    color: #cfd6ff;
+    opacity: 0.95;
+}
+
+
+/* ----- ТАРИФЫ ----- */
+
+.cloud-tariffs {
+    padding-top: 120px;
+    text-align: center;
+}
+
+.tariff-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 80px;
+}
+
+.tariff-cards {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.tariff-card {
+    width: 280px;
+    padding: 40px 30px;
+    border-radius: 30px;
+    color: white;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-image: url("/img/Rectangle 8.svg");
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.4s ease;
+}
+
+.tariff-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tariff-card:hover {
+    transform: scale(1.10);
+    box-shadow: 1px 3px 7px 2px rgb(124, 124, 187);
+}
+
+.tariff-card h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.tariff-card ul {
+    flex-grow: 1;
+    padding-left: 20px;
+    margin-bottom: 30px;
+}
+
+.tariff-card li {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.buy-btn {
+    background: #7b2cbf;
+    border: none;
+    padding: 10px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buy-btn:hover {
+    background: #9d4edd;
+    box-shadow: 1px 2px 8px 1px #c143e7;
+}
+
+.tariff-note {
+    margin-top: 60px;
+    opacity: 0.6;
+    font-size: 12px;
+}
+
+/* Страховка: карточки всегда видимы после анимации */
+.cloud-page .tariff-card {
+  opacity: 1;
+  transform: translateY(0);
+}
