@@ -35,18 +35,29 @@
     "Cover": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "isSale": {
       "type": "boolean"
     },
     "oldPrice": {
       "type": "integer"
+    },
+    "stock": {
+      "type": "integer",
+      "min": 0
+    },
+    "purchasable": {
+      "type": "boolean",
+      "default": true
+    },
+    "purchaseCount": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "lastPurchasedAt": {
+      "type": "datetime"
     },
     "banner": {
       "type": "relation",

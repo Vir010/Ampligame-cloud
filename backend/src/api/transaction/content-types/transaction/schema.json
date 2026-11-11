@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "Transaction"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "wallet": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::wallet.wallet",
+      "inversedBy": "transactions"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["deposit", "withdraw", "purchase", "refund"],
+      "required": true
+    },
+    "amount": {
+      "type": "integer",
+      "required": true
+    },
+    "balanceBefore": {
+      "type": "integer"
+    },
+    "balanceAfter": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "completed", "failed", "reversed"],
+      "default": "completed",
+      "required": true
+    },
+    "reference": {
+      "type": "string",
+      "unique": true
+    },
+    "game": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game.game"
+    },
+    "metadata": {
+      "type": "json"
+    }
+  }
+}

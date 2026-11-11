@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getCurrentUser, logout, User } from '@/lib/auth';
 import { getItem } from '@/lib/storage';
+import { fetchWallet } from '@/lib/wallet';
+import { clearStrapiAuth } from '@/lib/strapiAuth';
 import { applyCosmetics } from '@/lib/cosmetics';
 import { useLang } from '@/lib/i18n';
 import AuthModal from '@/components/auth/AuthModal';
@@ -30,13 +32,21 @@ export default function TopBar() {
   }, []);
 
   function refresh() {
-    setUser(getCurrentUser());
-    setBalance(parseInt(getItem('user_balance') || '1000'));
+    const currentUser = getCurrentUser();
+    setUser(currentUser);
+    if (currentUser) {
+      // Баланс хранится на сервере — подтягиваем из кошелька.
+      fetchWallet()
+        .then((w) => setBalance(w.balance))
+        .catch(() => { /* нет JWT Strapi — показываем 0 */ setBalance(0); });
+    } else {
+      setBalance(0);
+    }
     setAvatar(getItem('user_avatar') || '/img/default-avatar.svg');
     setStatus(getItem('user_status') || 'online');
   }
 
-  const handleLogout = () => { logout(); setUser(null); window.location.href = '/'; };
+  const handleLogout = () => { logout(); clearStrapiAuth(); setUser(null); window.location.href = '/'; };
   const handleAuthSuccess = () => { setShowAuth(false); refresh(); window.location.reload(); };
 
   if (!mounted) return null;

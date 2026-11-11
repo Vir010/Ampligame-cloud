@@ -111,7 +111,7 @@ export default function LibraryPage() {
               {wishlist.map((gameId, i) => {
                 const product = products[gameId];
                 if (!product) return null;
-                return <GameCard key={`${gameId}_${i}`} gameId={gameId} product={product} onWishlistToggle={loadData} />;
+                return <GameCard key={`${gameId}_${i}`} game={product} onWishlistToggle={loadData} />;
               })}
             </div>
           )}

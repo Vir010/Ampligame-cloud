@@ -786,6 +786,7 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
     game_year: Schema.Attribute.Integer;
     Genre: Schema.Attribute.String;
     isSale: Schema.Attribute.Boolean;
+    lastPurchasedAt: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'> &
       Schema.Attribute.Private;
@@ -793,6 +794,22 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
     Platform: Schema.Attribute.String;
     Price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
+    purchasable: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    purchaseCount: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    stock: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -884,6 +901,40 @@ export interface ApiGroupGroup extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLibraryItemLibraryItem extends Struct.CollectionTypeSchema {
+  collectionName: 'library_items';
+  info: {
+    displayName: 'LibraryItem';
+    pluralName: 'library-items';
+    singularName: 'library-item';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::library-item.library-item'
+    > &
+      Schema.Attribute.Private;
+    pricePaid: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    purchasedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<['owned', 'installed', 'refunded']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'owned'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    wallet: Schema.Attribute.Relation<'manyToOne', 'api::wallet.wallet'>;
   };
 }
 
@@ -1019,6 +1070,49 @@ export interface ApiTariffTariff extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTransactionTransaction extends Struct.CollectionTypeSchema {
+  collectionName: 'transactions';
+  info: {
+    displayName: 'Transaction';
+    pluralName: 'transactions';
+    singularName: 'transaction';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    amount: Schema.Attribute.Integer & Schema.Attribute.Required;
+    balanceAfter: Schema.Attribute.Integer;
+    balanceBefore: Schema.Attribute.Integer;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    game: Schema.Attribute.Relation<'manyToOne', 'api::game.game'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::transaction.transaction'
+    > &
+      Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    reference: Schema.Attribute.String & Schema.Attribute.Unique;
+    status: Schema.Attribute.Enumeration<
+      ['pending', 'completed', 'failed', 'reversed']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'completed'>;
+    type: Schema.Attribute.Enumeration<
+      ['deposit', 'withdraw', 'purchase', 'refund']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    wallet: Schema.Attribute.Relation<'manyToOne', 'api::wallet.wallet'>;
+  };
+}
+
 export interface ApiUsefulLinkUsefulLink extends Struct.CollectionTypeSchema {
   collectionName: 'useful_links';
   info: {
@@ -1045,6 +1139,54 @@ export interface ApiUsefulLinkUsefulLink extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     url: Schema.Attribute.String;
+  };
+}
+
+export interface ApiWalletWallet extends Struct.CollectionTypeSchema {
+  collectionName: 'wallets';
+  info: {
+    displayName: 'Wallet';
+    pluralName: 'wallets';
+    singularName: 'wallet';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    balance: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.String & Schema.Attribute.DefaultTo<'RUB'>;
+    libraryItems: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::library-item.library-item'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::wallet.wallet'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    transactions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::transaction.transaction'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1573,11 +1715,14 @@ declare module '@strapi/strapi' {
       'api::game1.game1': ApiGame1Game1;
       'api::global.global': ApiGlobalGlobal;
       'api::group.group': ApiGroupGroup;
+      'api::library-item.library-item': ApiLibraryItemLibraryItem;
       'api::popular-topic.popular-topic': ApiPopularTopicPopularTopic;
       'api::requirement.requirement': ApiRequirementRequirement;
       'api::stream.stream': ApiStreamStream;
       'api::tariff.tariff': ApiTariffTariff;
+      'api::transaction.transaction': ApiTransactionTransaction;
       'api::useful-link.useful-link': ApiUsefulLinkUsefulLink;
+      'api::wallet.wallet': ApiWalletWallet;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

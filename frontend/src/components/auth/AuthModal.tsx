@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { login, register } from '@/lib/auth';
+import { syncStrapiAuth } from '@/lib/strapiAuth';
 
 interface AuthModalProps {
   onClose: () => void;
@@ -27,10 +28,12 @@ export default function AuthModal({ onClose, onSuccess }: AuthModalProps) {
           ? await register(email, username, password)
           : await login(email, password);
 
-      if (result.success) {
+      if (result.success && result.user) {
+        // Авторизация в Strapi — нужна для денежного API.
+        await syncStrapiAuth(result.user.username, result.user.email, password, mode);
         onSuccess();
       } else {
-        setError(result.error || 'Ошибка');
+        setError(result?.error || 'Ошибка');
       }
     } catch (err) {
       setError('Ошибка сервера');
