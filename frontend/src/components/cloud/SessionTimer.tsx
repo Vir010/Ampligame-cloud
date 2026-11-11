@@ -1,54 +1,73 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { stopCloudSession, getActiveSession } from '@/lib/cloudApi';
+import { useState, useEffect, useRef } from 'react';
+import { stopCloudSession, getActiveSession, ActiveSession } from '@/lib/cloudApi';
 import { showToast } from '@/lib/toast';
-
-interface SessionData {
-  id: number;
-  minutesTotal: number;
-  minutesLeft: number;
-  startedAt: string;
-  tariff: { Title: string; Price: number } | null;
-}
 
 export default function SessionTimer({
   session: initialSession,
   onEnd,
 }: {
-  session: SessionData;
+  session: ActiveSession;
   onEnd: () => void;
 }) {
-  const [session, setSession] = useState(initialSession);
-  const [secondsLeft, setSecondsLeft] = useState(session.minutesLeft * 60);
+  const [session, setSession] = useState<ActiveSession>(initialSession);
+  const [secondsLeft, setSecondsLeft] = useState(initialSession.minutesLeft * 60);
   const [loading, setLoading] = useState(false);
+  const autoEnded = useRef(false);
 
+  // Один интервал — без пересоздания на каждом тике
   useEffect(() => {
-    if (secondsLeft <= 0) return;
-    const interval = setInterval(() => {
-      setSecondsLeft((s) => Math.max(0, s - 1));
+    const id = setInterval(() => {
+      setSecondsLeft((s) => (s > 0 ? s - 1 : 0));
     }, 1000);
-    return () => clearInterval(interval);
-  }, [secondsLeft]);
+    return () => clearInterval(id);
+  }, []);
 
+  // Синхронизация с сервером раз в 30 секунд
   useEffect(() => {
-    const interval = setInterval(async () => {
+    const id = setInterval(async () => {
       try {
         const data = await getActiveSession();
         if (data?.session) {
           setSession(data.session);
           setSecondsLeft(data.session.minutesLeft * 60);
+        } else {
+          // Сессия закончилась на сервере — завершаем UI
+          onEnd();
         }
-      } catch {}
+      } catch {
+        /* сетевые ошибки игнорируем, следующий тик попробует снова */
+      }
     }, 30000);
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(id);
+  }, [onEnd]);
+
+  // Автозавершение при 0
+  useEffect(() => {
+    if (secondsLeft !== 0 || autoEnded.current) return;
+    autoEnded.current = true;
+    (async () => {
+      try {
+        await stopCloudSession();
+        showToast('Время сессии истекло', 'info');
+      } catch {
+        /* уже могла быть закрыта */
+      } finally {
+        onEnd();
+      }
+    })();
+  }, [secondsLeft, onEnd]);
 
   const handleStop = async () => {
-    if (!confirm('Завершить сессию?')) return;
+    if (!confirm('Завершить сессию? Остаток средств будет возвращён.')) return;
     setLoading(true);
     try {
-      await stopCloudSession();
-      showToast('Сессия завершена', 'success');
+      const res = await stopCloudSession();
+      if (res.refund > 0) {
+        showToast(`Сессия завершена. Возвращено ${res.refund} ₽`, 'success');
+      } else {
+        showToast('Сессия завершена', 'success');
+      }
       onEnd();
     } catch (err: any) {
       showToast(err.message || 'Ошибка', 'error');

@@ -177,3 +177,78 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Стили для карточек тарифов */
+.tariff-card-new {
+  background: linear-gradient(180deg, #2a1b3d 0%, #11061f 100%);
+  border-radius: 20px;
+  padding: 30px;
+  color: #fff;
+  border: 1px solid #4a2c6d;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 380px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tariff-card-new:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(143, 62, 209, 0.3);
+}
+
+.tariff-card-new.is-active {
+  border: 2px solid #4caf50;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
+}
+
+.tariff-card-new h3 {
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.tariff-card-new ul {
+  flex: 1;
+  padding-left: 20px;
+  color: #ccc;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.tariff-card-new .tariff-price {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.tariff-card-new .tariff-price span {
+  font-size: 16px;
+  color: #888;
+  font-weight: normal;
+}
+
+.tariff-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background: #8f3ed1;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.tariff-btn:hover:not(:disabled) {
+  background: #a24ef0;
+}
+
+.tariff-btn:disabled {
+  background: #4caf50;
+  cursor: default;
+  opacity: 0.8;
+}

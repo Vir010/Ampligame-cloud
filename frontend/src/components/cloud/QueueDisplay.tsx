@@ -1,27 +1,47 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { getQueue } from '@/lib/cloudApi';
+import { useState, useEffect, useCallback } from 'react';
+import { getQueue, QueueData } from '@/lib/cloudApi';
+
+const POLL_INTERVAL = 5000;
 
 export default function QueueDisplay() {
-  const [queue, setQueue] = useState<any>(null);
+  const [queue, setQueue] = useState<QueueData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const loadQueue = async () => {
+  const loadQueue = useCallback(async () => {
     try {
       const data = await getQueue();
       setQueue(data);
-    } catch (err) {
-      // Тихо игнорируем (если юзер не залогинен)
+    } catch {
+      /* не залогинен — тихо игнорируем */
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    loadQueue();
-    const interval = setInterval(loadQueue, 5000);
-    return () => clearInterval(interval);
-  }, []);
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const start = () => {
+      loadQueue();
+      timer = setInterval(loadQueue, POLL_INTERVAL);
+    };
+    const stop = () => {
+      if (timer) clearInterval(timer);
+      timer = null;
+    };
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else start();
+    };
+
+    start();
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      stop();
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, [loadQueue]);
 
   if (loading) {
     return (
@@ -60,8 +80,11 @@ export default function QueueDisplay() {
       )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {queue.queue.slice(0, 5).map((item: any) => (
-          <div key={item.position} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', fontSize: '14px' }}>
+        {queue.queue.slice(0, 5).map((item) => (
+          <div
+            key={`${item.position}-${item.username}`}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', fontSize: '14px' }}
+          >
             <span style={{ color: '#b4a8ff', fontWeight: 'bold' }}>#{item.position}</span>
             <span style={{ color: '#fff', flex: 1, marginLeft: '12px' }}>{item.username}</span>
           </div>

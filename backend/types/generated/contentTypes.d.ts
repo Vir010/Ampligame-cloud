@@ -934,13 +934,13 @@ export interface ApiQueueQueue extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    joinedAt: Schema.Attribute.DateTime;
+    joinedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::queue.queue'> &
       Schema.Attribute.Private;
-    position: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     status: Schema.Attribute.Enumeration<['waiting', 'playing', 'finished']> &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'waiting'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -948,7 +948,8 @@ export interface ApiQueueQueue extends Struct.CollectionTypeSchema {
     user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Schema.Attribute.Required;
   };
 }
 
@@ -1002,20 +1003,39 @@ export interface ApiSessionSession extends Struct.CollectionTypeSchema {
       'api::session.session'
     > &
       Schema.Attribute.Private;
-    minutesTotal: Schema.Attribute.Integer;
-    minutesUsed: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    minutesTotal: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<60>;
+    minutesUsed: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
-    startedAt: Schema.Attribute.DateTime;
+    startedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
     status: Schema.Attribute.Enumeration<['active', 'finished', 'paused']> &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'active'>;
-    tariff: Schema.Attribute.Relation<'manyToOne', 'api::tariff.tariff'>;
+    tariff: Schema.Attribute.Relation<'manyToOne', 'api::tariff.tariff'> &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Schema.Attribute.Required;
   };
 }
 

@@ -1,38 +1,46 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { fetchTariffs } from "@/lib/strapi";
-import { getActiveSession } from "@/lib/cloudApi";
-import TariffCard from "@/components/cloud/TariffCard";
-import SessionTimer from "@/components/cloud/SessionTimer";
-import QueueDisplay from "@/components/cloud/QueueDisplay";
+import { useCallback, useEffect, useState } from 'react';
+import { fetchTariffs } from '@/lib/strapi';
+import { getActiveSession, ActiveSession } from '@/lib/cloudApi';
+import TariffCard from '@/components/cloud/TariffCard';
+import SessionTimer from '@/components/cloud/SessionTimer';
+import QueueDisplay from '@/components/cloud/QueueDisplay';
+import { showToast } from '@/lib/toast';
+
+interface Tariff {
+  documentId: string;
+  Title: string;
+  Price: number;
+  [key: string]: unknown;
+}
 
 export default function CloudPage() {
-  const [tariffs, setTariffs] = useState<any[]>([]);
-  const [session, setSession] = useState<any>(null);
+  const [tariffs, setTariffs] = useState<Tariff[]>([]);
+  const [session, setSession] = useState<ActiveSession | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       const [t, s] = await Promise.all([
         fetchTariffs(),
         getActiveSession().catch(() => ({ session: null })),
       ]);
-      setTariffs(t);
-      setSession(s?.session || null);
-    } catch (err) {
-      console.error("[cloud] Ошибка:", err);
+      setTariffs(t as Tariff[]);
+      setSession(s?.session ?? null);
+    } catch {
+      showToast('Не удалось загрузить данные облака', 'error');
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [loadData]);
 
   return (
-    <div className="cloud-page" style={{ display: "block" }}>
+    <div className="cloud-page" style={{ display: 'block' }}>
       <p className="cloud-mini">Cloud gaming</p>
       <h1 className="cloud-title">Почему AMPLIGAME?</h1>
 
@@ -65,14 +73,14 @@ export default function CloudPage() {
       <div className="cloud-tariffs">
         <h2 className="tariff-title">Найдите тариф, который подходит именно вам</h2>
 
-        {loading && <p style={{ color: "#aaa", textAlign: "center" }}>Загрузка тарифов...</p>}
+        {loading && <p style={{ color: '#aaa', textAlign: 'center' }}>Загрузка тарифов...</p>}
         {!loading && tariffs.length === 0 && (
-          <p style={{ color: "red", textAlign: "center" }}>
+          <p style={{ color: 'red', textAlign: 'center' }}>
             Тарифы не найдены. Добавьте их в Strapi (Content Manager → Tariff).
           </p>
         )}
 
-        <div className="tariff-cards" style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center" }}>
+        <div className="tariff-cards" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {tariffs.map((tariff) => (
             <TariffCard key={tariff.documentId} tariff={tariff} onPurchase={loadData} />
           ))}

@@ -13,21 +13,39 @@
     "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "required": true
     },
     "tariff": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::tariff.tariff"
+      "target": "api::tariff.tariff",
+      "required": true
     },
-    "startedAt": { "type": "datetime" },
-    "endedAt": { "type": "datetime" },
-    "minutesUsed": { "type": "integer", "default": 0 },
-    "minutesTotal": { "type": "integer" },
+    "startedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "endedAt": {
+      "type": "datetime"
+    },
+    "minutesUsed": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "min": 0
+    },
+    "minutesTotal": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "default": 60
+    },
     "status": {
       "type": "enumeration",
       "enum": ["active", "finished", "paused"],
-      "default": "active"
+      "default": "active",
+      "required": true
     }
   }
 }

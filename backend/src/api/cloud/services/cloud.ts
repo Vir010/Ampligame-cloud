@@ -1,95 +1,112 @@
-export default {
-  // Начать сессию
-  async startSession(userId: number, tariffId: string) {
-    // 1. Пользователь
-    const user: any = await strapi.db.query('plugin::users-permissions.user').findOne({
-      where: { id: userId },
-    });
-    if (!user) throw new Error('Пользователь не найден');
+const SESSION_MINUTES_DEFAULT = 60;
 
-    // 2. Тариф
+export default {
+  async startSession(userId: number, tariffId: string) {
     const tariff: any = await strapi.db.query('api::tariff.tariff').findOne({
       where: { documentId: tariffId },
     });
     if (!tariff) throw new Error('Тариф не найден');
 
-    // 3. Активная сессия?
+    const price = Number(tariff.Price) || 0;
+    if (price <= 0) throw new Error('Некорректная цена тарифа');
+
     const activeSession: any = await strapi.db.query('api::session.session').findOne({
       where: { user: userId, status: 'active' },
     });
     if (activeSession) throw new Error('У вас уже есть активная сессия');
 
-    // 4. Баланс
-    const price = tariff.Price || 0;
-    const balance = user.balance || 0;
-    if (balance < price) {
-      throw new Error(`Недостаточно средств. Нужно ${price - balance} ₽`);
-    }
-
-    // 5. Списываем
-    await strapi.db.query('plugin::users-permissions.user').update({
-      where: { id: userId },
-      data: { balance: balance - price, activeTariff: tariff.id },
+    const waitingQueue: any = await strapi.db.query('api::queue.queue').findOne({
+      where: { user: userId, status: 'waiting' },
     });
+    if (waitingQueue) throw new Error('Вы уже стоите в очереди');
 
-    // 6. Создаём сессию (60 минут)
-    const minutesTotal = 60;
+    const updated: any = await strapi.db.query('plugin::users-permissions.user').update({
+      where: {
+        id: userId,
+        balance: { $gte: price },
+      },
+      data: {
+        balance: { $decr: price },
+        activeTariff: tariff.id,
+      },
+    });
+    if (!updated) throw new Error(`Недостаточно средств. Нужно ${price} ₽`);
+
     const now = new Date();
+    try {
+      const session: any = await strapi.db.query('api::session.session').create({
+        data: {
+          user: userId,
+          tariff: tariff.id,
+          startedAt: now.toISOString(),
+          minutesUsed: 0,
+          minutesTotal: SESSION_MINUTES_DEFAULT,
+          status: 'active',
+        },
+      });
 
-    const session: any = await strapi.db.query('api::session.session').create({
-      data: {
-        user: userId,
-        tariff: tariff.id,
-        startedAt: now.toISOString(),
-        minutesUsed: 0,
-        minutesTotal,
-        status: 'active',
-      },
-    });
+      await strapi.db.query('api::queue.queue').create({
+        data: {
+          user: userId,
+          joinedAt: now.toISOString(),
+          status: 'waiting',
+        },
+      });
 
-    // 7. Добавляем в очередь
-    const queueCount = await strapi.db.query('api::queue.queue').count({
-      where: { status: 'waiting' },
-    });
-
-    await strapi.db.query('api::queue.queue').create({
-      data: {
-        user: userId,
-        position: queueCount + 1,
-        joinedAt: now.toISOString(),
-        status: 'waiting',
-      },
-    });
-
-    return {
-      session: {
-        id: session.id,
-        minutesTotal,
-        minutesUsed: 0,
-        startedAt: now.toISOString(),
-        status: 'active',
-      },
-      tariff: { id: tariff.id, Title: tariff.Title, Price: tariff.Price },
-      newBalance: balance - price,
-    };
+      return {
+        session: {
+          id: session.id,
+          minutesTotal: session.minutesTotal,
+          minutesUsed: 0,
+          startedAt: session.startedAt,
+          status: 'active',
+        },
+        tariff: { id: tariff.documentId, Title: tariff.Title, Price: price },
+        newBalance: Number(updated.balance),
+      };
+    } catch (err) {
+      await strapi.db.query('plugin::users-permissions.user').update({
+        where: { id: userId },
+        data: { balance: { $incr: price } },
+      });
+      throw err;
+    }
   },
 
-  // Завершить сессию
   async stopSession(userId: number) {
     const session: any = await strapi.db.query('api::session.session').findOne({
       where: { user: userId, status: 'active' },
+      populate: ['tariff'],
     });
     if (!session) throw new Error('Активная сессия не найдена');
 
     const now = new Date();
     const startedAt = new Date(session.startedAt);
-    const minutesElapsed = Math.floor((now.getTime() - startedAt.getTime()) / 60000);
+    const minutesElapsed = Math.max(
+      0,
+      Math.floor((now.getTime() - startedAt.getTime()) / 60000)
+    );
+    const minutesUsed = Math.min(minutesElapsed, session.minutesTotal);
+    const minutesLeft = Math.max(0, session.minutesTotal - minutesUsed);
+
+    let refund = 0;
+    if (session.tariff && session.tariff.Price && session.minutesTotal > 0) {
+      const pricePerMin = Number(session.tariff.Price) / session.minutesTotal;
+      refund = Math.floor(pricePerMin * minutesLeft);
+    }
+
+    if (refund > 0) {
+      await strapi.db.query('plugin::users-permissions.user').update({
+        where: { id: userId },
+        data: { balance: { $incr: refund } },
+      });
+    }
 
     await strapi.db.query('api::session.session').update({
       where: { id: session.id },
       data: {
         endedAt: now.toISOString(),
-        minutesUsed: minutesElapsed,
+        minutesUsed,
         status: 'finished',
       },
     });
@@ -99,10 +116,9 @@ export default {
       data: { status: 'finished' },
     });
 
-    return { minutesUsed: minutesElapsed, endedAt: now.toISOString() };
+    return { minutesUsed, minutesLeft, refund, endedAt: now.toISOString() };
   },
 
-  // Получить активную сессию
   async getActiveSession(userId: number) {
     const session: any = await strapi.db.query('api::session.session').findOne({
       where: { user: userId, status: 'active' },
@@ -113,12 +129,13 @@ export default {
     const now = new Date();
     const startedAt = new Date(session.startedAt);
     const minutesElapsed = Math.floor((now.getTime() - startedAt.getTime()) / 60000);
-    const minutesLeft = Math.max(0, session.minutesTotal - minutesElapsed);
+    const minutesUsed = Math.min(minutesElapsed, session.minutesTotal);
+    const minutesLeft = Math.max(0, session.minutesTotal - minutesUsed);
 
     return {
       id: session.id,
       minutesTotal: session.minutesTotal,
-      minutesUsed: minutesElapsed,
+      minutesUsed,
       minutesLeft,
       startedAt: session.startedAt,
       tariff: session.tariff
@@ -127,19 +144,18 @@ export default {
     };
   },
 
-  // Получить очередь
   async getQueue(userId: number) {
     const queue: any[] = await strapi.db.query('api::queue.queue').findMany({
       where: { status: 'waiting' },
       populate: ['user'],
-      orderBy: { position: 'asc' },
+      orderBy: { joinedAt: 'asc' },
     });
 
-    const myPosition = queue.findIndex((q) => q.user?.id === userId) + 1;
+    const myIndex = queue.findIndex((q) => q.user?.id === userId);
 
     return {
       total: queue.length,
-      myPosition: myPosition > 0 ? myPosition : null,
+      myPosition: myIndex >= 0 ? myIndex + 1 : null,
       queue: queue.map((q, idx) => ({
         position: idx + 1,
         username: q.user?.username || 'Гость',
