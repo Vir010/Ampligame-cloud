@@ -8,15 +8,8 @@ import SessionTimer from '@/components/cloud/SessionTimer';
 import QueueDisplay from '@/components/cloud/QueueDisplay';
 import { showToast } from '@/lib/toast';
 
-interface Tariff {
-  documentId: string;
-  Title: string;
-  Price: number;
-  [key: string]: unknown;
-}
-
 export default function CloudPage() {
-  const [tariffs, setTariffs] = useState<Tariff[]>([]);
+  const [tariffs, setTariffs] = useState<any[]>([]);
   const [session, setSession] = useState<ActiveSession | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +19,7 @@ export default function CloudPage() {
         fetchTariffs(),
         getActiveSession().catch(() => ({ session: null })),
       ]);
-      setTariffs(t as Tariff[]);
+      setTariffs(t as any[]);
       setSession(s?.session ?? null);
     } catch {
       showToast('Не удалось загрузить данные облака', 'error');
@@ -42,6 +35,7 @@ export default function CloudPage() {
   return (
     <div className="cloud-page" style={{ display: 'block' }}>
       <p className="cloud-mini">Cloud gaming</p>
+      
       <h1 className="cloud-title">Почему AMPLIGAME?</h1>
 
       <div className="cloud-features">
@@ -75,9 +69,7 @@ export default function CloudPage() {
 
         {loading && <p style={{ color: '#aaa', textAlign: 'center' }}>Загрузка тарифов...</p>}
         {!loading && tariffs.length === 0 && (
-          <p style={{ color: 'red', textAlign: 'center' }}>
-            Тарифы не найдены. Добавьте их в Strapi (Content Manager → Tariff).
-          </p>
+          <p style={{ color: 'red', textAlign: 'center' }}>Тарифы не найдены. Добавьте их в Strapi.</p>
         )}
 
         <div className="tariff-cards" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -85,7 +77,6 @@ export default function CloudPage() {
             <TariffCard key={tariff.documentId} tariff={tariff} onPurchase={loadData} />
           ))}
         </div>
-
         <p className="tariff-note">* Платные игры можно запустить только в том случае, если они у вас уже куплены</p>
       </div>
     </div>

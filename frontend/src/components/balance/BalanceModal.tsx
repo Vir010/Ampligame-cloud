@@ -14,7 +14,11 @@ export default function BalanceModal({ onClose, onSuccess }: { onClose: () => vo
     try {
       const res = await topUpBalance(val);
       showToast(res.message || `Баланс пополнен на ${val} ₽`, 'success');
-      onSuccess(); // Обновляем баланс в интерфейсе
+      
+      // СООБЩАЕМ ВСЕМ КОМПОНЕНТАМ, ЧТО БАЛАНС ИЗМЕНИЛСЯ
+      window.dispatchEvent(new Event('balanceUpdated'));
+      
+      onSuccess(); 
       onClose();
     } catch (err: any) {
       showToast(err.message || 'Ошибка оплаты', 'error');

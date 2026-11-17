@@ -8,6 +8,7 @@ import { applyCosmetics } from '@/lib/cosmetics';
 import { useLang } from '@/lib/i18n';
 import AuthModal from '@/components/auth/AuthModal';
 import BalanceModal from '@/components/balance/BalanceModal';
+import { getBalance } from '@/lib/cloudApi'; // <--- Подключаем серверный API
 
 const STATUS_COLORS = { online: '#4caf50', away: '#ffaa00', dnd: '#ff4444', invisible: '#888' };
 
@@ -15,7 +16,7 @@ export default function TopBar() {
   const { t } = useLang();
   const [mounted, setMounted] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [balance, setBalance] = useState(1000);
+  const [balance, setBalance] = useState<number | null>(null);
   const [avatar, setAvatar] = useState('/img/default-avatar.svg');
   const [status, setStatus] = useState('online');
   const [showAuth, setShowAuth] = useState(false);
@@ -25,15 +26,31 @@ export default function TopBar() {
     setMounted(true);
     refresh();
     applyCosmetics();
-    const interval = setInterval(refresh, 1500);
-    return () => clearInterval(interval);
+
+    // Слушаем событие обновления баланса (чтобы обновлять мгновенно)
+    window.addEventListener('balanceUpdated', refresh);
+
+    // Фоновый опрос сервера каждые 10 секунд (на случай если баланс изменили с другого устройства)
+    const interval = setInterval(refresh, 10000); 
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('balanceUpdated', refresh);
+    };
   }, []);
 
-  function refresh() {
+  async function refresh() {
     setUser(getCurrentUser());
-    setBalance(parseInt(getItem('user_balance') || '1000'));
     setAvatar(getItem('user_avatar') || '/img/default-avatar.svg');
     setStatus(getItem('user_status') || 'online');
+    
+    try {
+      // Запрашиваем реальный баланс с сервера
+      const res = await getBalance();
+      setBalance(res.balance);
+    } catch {
+      setBalance(0); // Если сервер лежит
+    }
   }
 
   const handleLogout = () => { logout(); setUser(null); window.location.href = '/'; };
@@ -54,7 +71,9 @@ export default function TopBar() {
             </Link>
             <div className="balance-card" style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '10px 20px', borderRadius: '50px', background: 'rgba(26,26,26,0.8)', border: '1px solid #333' }}>
               <span className="balance-label" style={{ fontSize: '13px', color: '#b4a8ff' }}>{t('balance')}</span>
-              <span className="balance-amount" style={{ fontSize: '20px', fontWeight: 'bold', color: '#8f3ed1' }}>{balance.toLocaleString('ru-RU')} ₽</span>
+              <span className="balance-amount" style={{ fontSize: '20px', fontWeight: 'bold', color: '#8f3ed1' }}>
+                {balance !== null ? `${balance.toLocaleString('ru-RU')} ₽` : '...'}
+              </span>
               <button onClick={() => setShowBalance(true)} style={{ background: 'linear-gradient(135deg, #8f3ed1, #a110ce)', border: 'none', borderRadius: '20px', color: 'white', padding: '8px 16px', cursor: 'pointer', fontWeight: 'bold', fontSize: '12px' }}>
                 {t('top_up')}
               </button>

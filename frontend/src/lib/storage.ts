@@ -1,11 +1,9 @@
-// src/lib/storage.ts
-// Per-user изоляция localStorage (перенос из storage.js)
-
 const GLOBAL_KEYS = ['ampligame_current_user', 'ampligame_users', 'app_theme', 'app_language'];
 const PER_USER_KEYS = [
   'user_nickname', 'user_avatar', 'user_display_name', 'user_balance',
   'user_game_library', 'user_achievements', 'user_friends',
   'friend_requests', 'blocked_users',
+  'user_steam_cards', 'user_crafted_badges',
 ];
 const PER_USER_PREFIXES = ['game_installed_'];
 
@@ -14,9 +12,7 @@ function getUserId(): string | null {
   try {
     const raw = localStorage.getItem('ampligame_current_user');
     return raw ? JSON.parse(raw).id : null;
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 }
 
 function isPerUserKey(key: string): boolean {
@@ -53,23 +49,16 @@ export function removeItem(key: string): void {
 export function getJSON<T = any>(key: string, fallback: T): T {
   const raw = getItem(key);
   if (!raw) return fallback;
-  try {
-    return JSON.parse(raw) as T;
-  } catch {
-    return fallback;
-  }
+  try { return JSON.parse(raw) as T; } catch { return fallback; }
 }
 
 export function setJSON(key: string, value: any): void {
   setItem(key, JSON.stringify(value));
 }
 
-// Очистка legacy-данных (при регистрации нового пользователя)
 export function clearLegacy(): void {
   if (typeof window === 'undefined') return;
-  PER_USER_KEYS.forEach((k) => {
-    localStorage.removeItem(k);
-  });
+  PER_USER_KEYS.forEach((k) => { localStorage.removeItem(k); });
   PER_USER_PREFIXES.forEach((p) => {
     for (let i = localStorage.length - 1; i >= 0; i--) {
       const k = localStorage.key(i);

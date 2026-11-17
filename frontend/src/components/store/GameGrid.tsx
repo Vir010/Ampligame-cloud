@@ -10,11 +10,7 @@ export default function GameGrid({
   searchQuery: string;
 }) {
   if (!games || !Array.isArray(games)) {
-    return (
-      <p style={{ color: "red" }}>
-        Ошибка: данные не загружены. typeof games = {typeof games}
-      </p>
-    );
+    return <p style={{ color: "red" }}>Ошибка: данные не загружены</p>;
   }
 
   let filteredGames = games;
@@ -23,8 +19,8 @@ export default function GameGrid({
     const q = searchQuery.toLowerCase().trim();
     filteredGames = filteredGames.filter(
       (game) =>
-        (game.Title && game.Title.toLowerCase().includes(q)) ||
-        (game.Genre && game.Genre.toLowerCase().includes(q)) ||
+        (game.title && game.title.toLowerCase().includes(q)) ||
+        (game.genre && game.genre.toLowerCase().includes(q)) ||
         (game.developer && game.developer.toLowerCase().includes(q))
     );
   }
@@ -32,7 +28,7 @@ export default function GameGrid({
   if (filteredGames.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "50px", color: "#888" }}>
-        <p>Ничего не найдено по запросу "{searchQuery}"</p>
+        <p>Ничего не найдено{searchQuery ? ` по запросу "${searchQuery}"` : ""}</p>
       </div>
     );
   }
@@ -40,7 +36,7 @@ export default function GameGrid({
   return (
     <div className="games-grid">
       {filteredGames.map((game) => (
-        <GameCard key={game.documentId} game={game} />
+        <GameCard key={game.documentId || game.id} game={game} />
       ))}
     </div>
   );

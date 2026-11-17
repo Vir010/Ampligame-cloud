@@ -1,24 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getJSON } from "@/lib/storage";
 import Link from "next/link";
+import { getLibrary, LibraryGame } from "@/lib/libraryApi";
 
 export default function MyLibraryPreview() {
-  const [games, setGames] = useState<any[]>([]);
+  const [games, setGames] = useState<LibraryGame[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const raw = getJSON<any[]>("user_game_library", []);
-
-    // 1. Оставляем только записи с id
-    // 2. Убираем дубликаты по id
-    const unique = raw
-      .filter((g) => g && g.id)
-      .filter((g, i, arr) => arr.findIndex((x) => x.id === g.id) === i);
-
-    setGames(unique);
+    const load = async () => {
+      try {
+        const res = await getLibrary();
+        setGames(res.data || []);
+      } catch {
+        setGames([]);
+      }
+    };
+    load();
+    window.addEventListener('libraryUpdated', load);
+    return () => window.removeEventListener('libraryUpdated', load);
   }, []);
 
   if (!mounted) return null;
@@ -35,16 +37,10 @@ export default function MyLibraryPreview() {
         }}
       >
         {games.map((g) => (
-          <Link
-            key={g.id}
-            href={`/store/${g.id}`}
-            style={{ textDecoration: "none" }}
-          >
-            <div
-              style={{ background: "#1a1a1a", borderRadius: 12, padding: 10 }}
-            >
+          <Link key={g.id} href={`/store/${g.id}`} style={{ textDecoration: "none" }}>
+            <div style={{ background: "#1a1a1a", borderRadius: 12, padding: 10 }}>
               <img
-                src={g.image || "/placeholder.png"}
+                src={g.image || "/img/default-avatar.svg"}
                 alt={g.title || "Игра"}
                 style={{ width: "100%", borderRadius: 8 }}
               />

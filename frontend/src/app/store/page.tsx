@@ -24,7 +24,7 @@ export default function StorePage() {
             genre: g.Genre || "Не указан",
             image: g.Cover?.url
               ? `http://127.0.0.1:1337${g.Cover.url}`
-              : "/placeholder.png",
+              : "/img/default-avatar.svg",
           }))
         );
       })
