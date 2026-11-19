@@ -1138,6 +1138,42 @@ export interface ApiUsefulLinkUsefulLink extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiWalletTransaction extends Struct.CollectionTypeSchema {
+  collectionName: 'transactions';
+  info: {
+    description: '\u0422\u0440\u0430\u043D\u0437\u0430\u043A\u0446\u0438\u0438 \u043F\u043E \u043A\u043E\u0448\u0435\u043B\u044C\u043A\u0443';
+    displayName: 'Transaction';
+    pluralName: 'transactions';
+    singularName: 'transaction';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::wallet.transaction'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    reference: Schema.Attribute.String;
+    status: Schema.Attribute.String;
+    type: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1672,6 +1708,7 @@ declare module '@strapi/strapi' {
       'api::stream.stream': ApiStreamStream;
       'api::tariff.tariff': ApiTariffTariff;
       'api::useful-link.useful-link': ApiUsefulLinkUsefulLink;
+      'api::wallet.transaction': ApiWalletTransaction;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

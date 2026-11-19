@@ -22,6 +22,7 @@
     "@strapi/strapi": "5.60.0",
     "better-sqlite3": "12.11.1",
     "fs-extra": "^10.0.0",
+    "koa-ratelimit": "^6.0.0",
     "mime-types": "^2.1.27",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
